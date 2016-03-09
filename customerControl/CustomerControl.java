@@ -14,11 +14,12 @@ import model.Bank;
 public class CustomerControl {
     
     private Bank bank;
-    private String username, password;
+    private String password;
+    private int cpr;
 
-    public CustomerControl(Bank bank, String username, String password) {
+    public CustomerControl(Bank bank, int cpr, String password) {
         this.bank = bank;
-        this.username = username;
+        this.cpr = cpr;
         this.password = password;
          
     }
