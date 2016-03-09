@@ -49,20 +49,31 @@ public class CustomerHandler {
         pst.setInt(1, cpr);
         pst.setString(2, new String(password));
         ResultSet rs = pst.executeQuery();
-        if (rs.next()){
+        if (rs.next()) {
             return true;
         }
         return false;
-        
+
     }
 
     public Customer customerLogin(int cpr, char[] password) throws SQLException {
         if (validateLogin(cpr, password)) {
+            Customer customer = null;
             String stmt = "SELECT * FROM customer WHERE cpr=?";
             PreparedStatement pst = db.getPrepStmt(stmt);
             pst.setInt(1, cpr);
             ResultSet rs = pst.executeQuery();
-            
+            while (rs.next()) {
+                int cprNum = rs.getInt("cpr");
+                String name = rs.getString("customer_name");
+                int phone = rs.getInt("phone");
+                String email = rs.getString("email");
+                String Userpassword = rs.getString("customer_password");
+                ArrayList<Account> accounts = ah.getAccounts(cpr);
+                customer = new Customer(cprNum, name, phone, email, Userpassword, accounts);
+            }
+            return customer;
         }
+        return null;
     }
 }
