@@ -25,7 +25,7 @@ public class BankGui extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    public void updateDialog(JDialog dialog) {
+    public static void updateDialog(JDialog dialog) {
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         if (dialog.isVisible()) {
@@ -54,6 +54,17 @@ public class BankGui extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         accountPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        showAccountsPanel = new javax.swing.JPanel();
         firstPanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
@@ -158,28 +169,118 @@ public class BankGui extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButton5.setText("Ændre");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setEditable(false);
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel12.setText("Navn");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jLabel13.setText("Kundeoplysninger");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel14.setText("Telefon");
+
+        jTextField2.setEditable(false);
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel15.setText("E-Mail");
+
+        jTextField3.setEditable(false);
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1220, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addGap(10, 10, 10))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 183, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jLabel16.setText("Konti");
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        showAccountsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        showAccountsPanel.setLayout(new javax.swing.BoxLayout(showAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane2.setViewportView(showAccountsPanel);
 
         javax.swing.GroupLayout accountPanelLayout = new javax.swing.GroupLayout(accountPanel);
         accountPanel.setLayout(accountPanelLayout);
         accountPanelLayout.setHorizontalGroup(
             accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(accountPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(accountPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         accountPanelLayout.setVerticalGroup(
             accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(accountPanelLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 643, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel16)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 105, Short.MAX_VALUE))
         );
 
         jPanel1.add(accountPanel, "card3");
@@ -245,6 +346,11 @@ public class BankGui extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton4.setText("Vælg Kunde");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout firstPanelLayout = new javax.swing.GroupLayout(firstPanel);
         firstPanel.setLayout(firstPanelLayout);
@@ -390,6 +496,26 @@ public class BankGui extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        if (!jTextField1.isEditable()) {
+            jTextField1.setEditable(true);
+            jTextField2.setEditable(true);
+            jTextField3.setEditable(true);
+        } else {
+            jTextField1.setEditable(false);
+            jTextField2.setEditable(false);
+            jTextField3.setEditable(false);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        layout = (CardLayout) jPanel1.getLayout();
+        layout.next(jPanel1);
+        //showAccountsPanel.add(new AccountPanel());
+        showAccountsPanel.revalidate();
+        showAccountsPanel.repaint();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -434,10 +560,16 @@ public class BankGui extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -449,13 +581,18 @@ public class BankGui extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField nameField1;
     private javax.swing.JTextField newPasswordField;
     private javax.swing.JTextField newUsernameField;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField phoneField;
+    private javax.swing.JPanel showAccountsPanel;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }
