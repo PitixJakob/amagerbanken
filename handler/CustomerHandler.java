@@ -50,8 +50,12 @@ public class CustomerHandler {
         pst.setString(2, new String(password));
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
+            rs.close();
+            pst.close();
             return true;
         }
+        rs.close();
+        pst.close();
         return false;
 
     }
@@ -72,8 +76,34 @@ public class CustomerHandler {
                 ArrayList<Account> accounts = ah.getAccounts(cpr);
                 customer = new Customer(cprNum, name, phone, email, Userpassword, accounts);
             }
+            rs.close();
+            pst.close();
             return customer;
         }
         return null;
+    }
+    
+    public void addCustomer(int cpr, String name, int phone, String email, String password) throws SQLException{
+        
+        String stmt = "INSERT INTO customer (cpr, customer_name, phone, email, customer_password) VALUES (?,?,?,?,?)";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        pst.setInt(1, cpr);
+        pst.setString(2, name);
+        pst.setInt(3, phone);
+        pst.setString(4, email);
+        pst.setString(5, password);
+        pst.executeUpdate();
+        pst.close();
+    }
+    
+    public void updateCustomer(int cpr, String name, int phone, String email) throws SQLException{
+        
+        String stmt = "Begin;"
+                + "UPDATE customer SET name = ? WHERE cpr = ? ;"
+                + "UPDATE customer SET phone = ? WHERE cpr = ? ;"
+                + "UPDATE customer SET email = ? WHERE cpr = ? ;";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        pst.executeUpdate();
+        pst.close();
     }
 }
