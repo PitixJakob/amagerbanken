@@ -5,28 +5,22 @@
  */
 package customerControl;
 
+import model.Bank;
+
 /**
  *
  * @author Gudni
  */
 public class CustomerControl {
     
-    bank Bank();
+    private Bank bank;
+    private String username, password;
 
-    public CustomerControl() {
-        
-        public String login(String username, String password){
-            
-            return customer;
-            
-        }
-        
-        public boolean checkAcount(){
-            
-            return account;
-        }
-        
-        public 
+    public CustomerControl(Bank bank, String username, String password) {
+        this.bank = bank;
+        this.username = username;
+        this.password = password;
+         
     }
     
     
