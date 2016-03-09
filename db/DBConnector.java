@@ -29,7 +29,7 @@ public class DBConnector {
 
     private DBConnector() throws ClassNotFoundException, SQLException, IOException {
         Class.forName(JDBC_DRIVER);
-        fw = new FileHandler("DatabaseIndstillinger.txt");
+        fw = new FileHandler("src/resources/DatabaseIndstillinger.txt");
         ArrayList<String> dbSettings = fw.openFile();
         database_usr = dbSettings.get(0);
         database_pwd = dbSettings.get(1);
@@ -84,6 +84,7 @@ public class DBConnector {
     }
 
     public PreparedStatement getPrepStmt(String stm) throws SQLException {
+        connectToDB();
         stmt = con.prepareStatement(stm);
         return stmt;
     }
