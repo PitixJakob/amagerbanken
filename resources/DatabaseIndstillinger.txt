@@ -1,0 +1,8 @@
+//USERNAME
+jjcomput_bank
+//PASSWORD
+amagerbanken
+//URL
+jjcomputer.dk:3306
+//SCHEMA
+jjcomput_bank
