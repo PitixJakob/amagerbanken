@@ -23,20 +23,19 @@ public class AccountHandler {
         db = DBConnector.getDB();
     }
 
-    public ArrayList<Account> getAccounts(int id) throws SQLException {
+    public ArrayList<Account> getAccounts(int cpr) throws SQLException {
         ArrayList<Account> accounts = new ArrayList<>();
-        String stmt = "SELECT * FROM account WHERE customer_id=?";
+        String stmt = "SELECT * FROM account WHERE customer_cpr=?";
         PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.setInt(1, id);
+        pst.setInt(1, cpr);
         ResultSet rs = pst.executeQuery();
         while (rs.next()){
+            int accountType = rs.getInt("account_type");
             int accountNumber = rs.getInt("account_number");
             int regNr = rs.getInt("reg_nr");
             long balance = rs.getLong("balance");
             double interest = rs.getDouble("interest");
             long overdraw = rs.getLong("overdraw");
-            int accountType = rs.getInt("account_type");
-            
             if (accountType == 1){
                 accounts.add(new Current(accountNumber, regNr, balance, interest, overdraw));
             }
