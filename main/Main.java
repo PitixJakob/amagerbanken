@@ -26,7 +26,9 @@ public class Main {
         try {
             CustomerHandler ch = new CustomerHandler();
             ArrayList<Customer> customers = ch.getCustomers("rasm");
-            System.out.println(ch.validateLogin("morten", "12345".toCharArray()));
+            for (Customer customer : customers) {
+                System.out.println(customer.getCpr());
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

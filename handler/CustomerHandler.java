@@ -34,20 +34,19 @@ public class CustomerHandler {
             String name = rs.getString("customer_name");
             int phone = rs.getInt("phone");
             String email = rs.getString("email");
-            String username = rs.getString("username");
             String password = rs.getString("customer_password");
             ArrayList<Account> accounts = ah.getAccounts(cpr);
-            customers.add(new Customer(cpr, name, phone, email, username, password, accounts));
+            customers.add(new Customer(cpr, name, phone, email, password, accounts));
         }
         rs.close();
         pst.close();
         return customers;
     }
 
-    public boolean validateLogin(String username, char[] password) throws SQLException {
-        String stmt = "SELECT customer.username, customer.customer_password FROM customer WHERE username=? AND customer_password=?";
+    public boolean validateLogin(int cpr, char[] password) throws SQLException {
+        String stmt = "SELECT customer.cpr, customer.customer_password FROM customer WHERE cpr=? AND customer_password=?";
         PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.setString(1, username);
+        pst.setInt(1, cpr);
         pst.setString(2, new String(password));
         ResultSet rs = pst.executeQuery();
         if (rs.next()){
@@ -57,11 +56,12 @@ public class CustomerHandler {
         
     }
 
-    public Customer customerLogin(String username, char[] password) throws SQLException {
-        if (validateLogin(username, password)) {
-            String stmt = "SELECT * FROM customer WHERE username=?";
+    public Customer customerLogin(int cpr, char[] password) throws SQLException {
+        if (validateLogin(cpr, password)) {
+            String stmt = "SELECT * FROM customer WHERE cpr=?";
             PreparedStatement pst = db.getPrepStmt(stmt);
-            pst.setString(1, username);
+            pst.setInt(1, cpr);
+            ResultSet rs = pst.executeQuery();
             
         }
     }
