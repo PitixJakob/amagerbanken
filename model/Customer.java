@@ -13,14 +13,16 @@ public class Customer {
     private String email;
     private String username;
     private String password;
+    private int cpr;
     private ArrayList<Account> accounts;
     
-    public Customer(String name, int phone, String email, String username, String password, ArrayList<Account> accounts) {
+    public Customer(int cpr, String name, int phone, String email, String username, String password, ArrayList<Account> accounts) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.cpr = cpr;
         this.accounts = accounts;
     }
     
@@ -46,6 +48,10 @@ public class Customer {
 
     public String getPassword() {
         return password;
+    }
+    
+    public int getCpr(){
+        return cpr;
     }
 
     public ArrayList<Account> getAccounts() {
@@ -74,6 +80,10 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public void setCpr(int cpr) {
+        this.cpr = cpr;
     }
     
     public void setAccounts(ArrayList accounts) {
