@@ -14,4 +14,9 @@ public class Current extends Account{
         super(accountNumber, regNr, balance, interest, overdraw);
     }
 
+    @Override
+    public int getAccountType() {
+        return 1;
+    }
+
 }

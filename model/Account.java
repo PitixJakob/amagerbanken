@@ -25,6 +25,8 @@ public abstract class Account {
         this.regNr = regNr;
     }
     
+    public abstract int getAccountType();
+    
     //--------------------------------------------------------------------------
     // Accessors
     //--------------------------------------------------------------------------
@@ -85,5 +87,8 @@ public abstract class Account {
         }
     }
     
-    
+    public String toString() {
+        return regNr + " - " + accountNumber + ": " + balance;
+    }
 }
+    

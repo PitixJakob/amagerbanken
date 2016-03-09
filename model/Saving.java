@@ -10,4 +10,9 @@ public class Saving extends Account{
         super(accountNumber, regNr, balance, interest, overdraw);
     }
 
+    @Override
+    public int getAccountType() {
+        return 2;
+    }
+
 }
