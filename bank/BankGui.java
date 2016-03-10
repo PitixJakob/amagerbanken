@@ -553,7 +553,7 @@ public class BankGui extends javax.swing.JFrame {
             Customer c = customer.get(index);
             bvc.setCustomer(c);
             for (Account a : c.getAccounts()) {
-                showAccountsPanel.add(new AccountPanel(a, c));
+                showAccountsPanel.add(new AccountPanel(a, c, bvc));
             }
             showAccountsPanel.revalidate();
             showAccountsPanel.repaint();

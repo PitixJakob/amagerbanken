@@ -22,6 +22,10 @@ public class CustomerHandler {
         db = DBConnector.getDB();
         ah = new AccountHandler();
     }
+    
+    public AccountHandler getAccountHandler() {
+        return ah;
+    }
 
     public ArrayList<Customer> getCustomers(String searchName) throws SQLException, ClassNotFoundException, IOException {
         ArrayList<Customer> customers = new ArrayList<>();

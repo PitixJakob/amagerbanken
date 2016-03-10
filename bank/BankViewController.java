@@ -3,6 +3,7 @@ package bank;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Account;
 import model.Bank;
 import model.Current;
 import model.Customer;
@@ -40,8 +41,28 @@ public class BankViewController {
         return bank.getCash();
     }
     
+    public void editInterest(Account account, double interest) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().updateInterest(account, interest);
+    }
+    
+    public void editOverdraw(Account account, long overdraw) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().updateOverdraw(account, overdraw);
+    }
+    
     public void setCustomer(Customer c) {
         bank.setCustomer(c);
+    }
+    
+    public void deposit(Account account, long amount) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().deposit(bank.getAccount(), bank.getCash(), account, amount);
+    }
+    
+    public void withdraw(Account account, long amount) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().withdraw(bank.getAccount(), bank.getCash(), account, amount);
+    }
+    
+    public void transfer(Account account, long amount) {
+        
     }
     
     

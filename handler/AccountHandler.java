@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Account;
 import model.Current;
-import model.Customer;
 import model.Saving;
 
 /**
@@ -104,7 +103,7 @@ public class AccountHandler {
         pst.executeUpdate();
         account.setInterest(newInterest);
         pst.close();
-        
+
     }
 
     public void updateOverdraw(Account account, long newOverdraw) throws SQLException {
@@ -116,15 +115,15 @@ public class AccountHandler {
         account.setOverdraw(newOverdraw);
         pst.close();
     }
-    
-    public void begin() throws SQLException{
+
+    public void begin() throws SQLException {
         String stmt = "BEGIN;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
         pst.close();
     }
-    
-    public void commitDeposit(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException{
+
+    public void commitDeposit(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
         String stmt = "COMMIT";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
@@ -133,8 +132,8 @@ public class AccountHandler {
         cashAccount.deposit(amount);
         userAccount.deposit(amount);
     }
-    
-    public void commitWithdraw(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException{
+
+    public void commitWithdraw(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
         String stmt = "COMMIT";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
@@ -143,8 +142,8 @@ public class AccountHandler {
         cashAccount.withdraw(amount);
         userAccount.withdraw(amount);
     }
-    
-    public void rollback() throws SQLException{
+
+    public void rollback() throws SQLException {
         String stmt = "ROLLBACK";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();

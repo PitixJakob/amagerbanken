@@ -5,8 +5,12 @@
  */
 package bank;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import model.Account;
 import model.Customer;
 
@@ -19,17 +23,19 @@ public class AccountPanel extends javax.swing.JPanel {
     private Customer customer;
     private Account account;
     private DefaultComboBoxModel model;
+    private BankViewController bvc;
 
     /**
      * Creates new form accountPanel
      *
      * @param account
      */
-    public AccountPanel(Account account, Customer customer) {
+    public AccountPanel(Account account, Customer customer, BankViewController bvc) {
         initComponents();
         this.account = account;
         this.customer = customer;
         model = new DefaultComboBoxModel();
+        this.bvc = bvc;
     }
 
     public void setData() {
@@ -355,6 +361,11 @@ public class AccountPanel extends javax.swing.JPanel {
         transferLabel3.setText("Beløb");
 
         jButton1.setText("Overfør");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -608,9 +619,14 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void editInterestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInterestButtonActionPerformed
-        
-        BankGui.updateDialog(interestDialog);
-        
+        double interest = Double.parseDouble(jTextField1.getText());
+        try {
+            bvc.editInterest(account, interest);
+            JOptionPane.showConfirmDialog(null, "Rente ændret");
+            BankGui.updateDialog(interestDialog);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }//GEN-LAST:event_editInterestButtonActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -626,12 +642,21 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void inOutCommitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOutCommitButtonActionPerformed
+        long amount = (long) (Double.parseDouble(jTextField3.getText())*100);
         if (jRadioButton1.isSelected()) {
-
+            try {
+                bvc.deposit(account, amount);
+                BankGui.updateDialog(inOutDialog);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (jRadioButton2.isSelected()) {
-
-        } else {
-
+            try {
+                bvc.deposit(account, amount);
+                BankGui.updateDialog(inOutDialog);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_inOutCommitButtonActionPerformed
 
@@ -659,7 +684,14 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_transferButtonActionPerformed
 
     private void editOverdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editOverdrawButtonActionPerformed
-        BankGui.updateDialog(overdrawDialog);
+        long overdraw = (long) (Double.parseDouble(jTextField2.getText())*100);
+        try {
+            bvc.editOverdraw(account, overdraw);
+            JOptionPane.showConfirmDialog(null, "Rente Ændret");
+            BankGui.updateDialog(overdrawDialog);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_editOverdrawButtonActionPerformed
 
     private void overdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overdrawButtonActionPerformed
@@ -669,6 +701,12 @@ public class AccountPanel extends javax.swing.JPanel {
     private void inOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOutButtonActionPerformed
         BankGui.updateDialog(inOutDialog);
     }//GEN-LAST:event_inOutButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(!jTextField4.getText().isEmpty()) {
+            bvc.
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
