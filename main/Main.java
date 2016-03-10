@@ -5,6 +5,8 @@
  */
 package main;
 
+import bank.BankGui;
+import bank.BankViewController;
 import handler.CustomerHandler;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,7 +25,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Bank bank;
+        Bank bank = null;
         try {
             bank = new Bank();
         } catch (ClassNotFoundException ex) {
@@ -33,6 +35,11 @@ public class Main {
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        BankViewController bvc = new BankViewController(bank);
+        BankGui bg = new BankGui(bvc);
+        bg.validate();
+        bg.setLocationRelativeTo(null);
+        bg.setVisible(false);
         
     }
     
