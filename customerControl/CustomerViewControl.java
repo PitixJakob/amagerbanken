@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import model.Account;
 import model.Bank;
 import model.Customer;
+import handler.AccountHandler;
 
 /**
  *
@@ -30,11 +31,10 @@ public class CustomerViewControl {
     }
     
     public ArrayList<Account> getAccounts(){
-        ArrayList<Account> account = new ArrayList();
         return customer.getAccounts();
     }
     
-    public void transfer(long amount){
+    public void transfer(Account fromAccount, Account toAccount, long amount){
         
     }
 }
