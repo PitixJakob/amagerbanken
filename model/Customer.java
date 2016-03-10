@@ -12,10 +12,10 @@ public class Customer {
     private int phone;
     private String email;
     private String password;
-    private int cpr;
+    private String cpr;
     private ArrayList<Account> accounts;
     
-    public Customer(int cpr, String name, int phone, String email, String password, ArrayList<Account> accounts) {
+    public Customer(String cpr, String name, int phone, String email, String password, ArrayList<Account> accounts) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,7 +44,7 @@ public class Customer {
         return password;
     }
     
-    public int getCpr(){
+    public String getCpr(){
         return cpr;
     }
 
@@ -72,7 +72,7 @@ public class Customer {
         this.password = password;
     }
     
-    public void setCpr(int cpr) {
+    public void setCpr(String cpr) {
         this.cpr = cpr;
     }
     
