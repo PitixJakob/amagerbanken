@@ -94,6 +94,23 @@ public class AccountHandler {
             pst.close();
         }
     }
+    
+    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException{
+        if (fromAccount.getBalance() - amount >= -fromAccount.getOverdraw()){
+            begin();
+            String stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
+            PreparedStatement pst = db.getPrepStmt(stmt);
+            pst.setLong(1, amount);
+            pst.setInt(2, fromAccount.getAccountNumber());
+            pst.executeUpdate();
+            stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
+            pst = db.getPrepStmt(stmt);
+            pst.setLong(1, amount);
+            pst.setInt(2, toAccount.getAccountNumber());
+            pst.executeUpdate();
+            pst.close();
+        }
+    }
 
     public void updateInterest(Account account, double newInterest) throws SQLException {
         String stmt = "UPDATE account SET interest=? WHERE account_number=?";
@@ -115,9 +132,9 @@ public class AccountHandler {
         account.setOverdraw(newOverdraw);
         pst.close();
     }
-
-    public void begin() throws SQLException {
-        String stmt = "BEGIN;";
+    
+    public void begin() throws SQLException{
+        String stmt = "BEGIN";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
         pst.close();
@@ -141,6 +158,15 @@ public class AccountHandler {
         bankAccount.deposit(amount);
         cashAccount.withdraw(amount);
         userAccount.withdraw(amount);
+    }
+    
+    public void commitTransfer(Account fromAccount, Account toAccount, long amount) throws SQLException{
+        String stmt = "COMMIT";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        pst.execute();
+        pst.close();
+        fromAccount.withdraw(amount);
+        toAccount.deposit(amount);
     }
 
     public void rollback() throws SQLException {
