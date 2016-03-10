@@ -628,6 +628,7 @@ public class AccountPanel extends javax.swing.JPanel {
                 Account toAccount = new Current(acc, reg);
                 
                 bvc.transfer(account, toAccount, amount);
+                BankGui.updateDialog(currentTransferDialog);
             } catch (SQLException ex) {
                 Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -727,6 +728,7 @@ public class AccountPanel extends javax.swing.JPanel {
             try {
                 long amount = (long) Double.parseDouble(jTextField4.getText()) * 100;
                 bvc.transfer(account, (Account) jComboBox1.getSelectedItem(), amount);
+                BankGui.updateDialog(savingsTransferDialog);
             } catch (SQLException ex) {
                 Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
