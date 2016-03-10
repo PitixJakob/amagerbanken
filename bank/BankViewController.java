@@ -1,7 +1,10 @@
 package bank;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import model.Bank;
+import model.Current;
 import model.Customer;
 
 /**
@@ -24,5 +27,19 @@ public class BankViewController {
         bank.getCustomerHandler().updateCustomer(bank.getCustomer().getCpr(), name, phone, email);
         bank.updateCustomer(name, phone, email);
     }
+    
+    public ArrayList<Customer> getCustomers(String searchTerm) throws SQLException, ClassNotFoundException, IOException{
+        return bank.getCustomerHandler().getCustomers(searchTerm);
+    }
+    
+    public Current getAccount(){
+        return bank.getAccount();
+    }
+    
+    public Current getCash(){
+        return bank.getCash();
+    }
+    
+    
 
 }
