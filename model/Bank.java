@@ -28,7 +28,7 @@ public class Bank {
     }
     
     
-    public void setCustomers(Customer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
     
@@ -47,8 +47,18 @@ public class Bank {
     public Customer getCustomer(){
         return customer;
     }
+
+    public Current getAccount() {
+        return account;
+    }
+
+    public Current getCash() {
+        return cash;
+    }
     
-    public void updateCustomer(String cpr, String name, int phone, String email){
+    
+    
+    public void updateCustomer(String name, int phone, String email){
         customer.setName(name);
         customer.setPhone(phone);
         customer.setEmail(email);
