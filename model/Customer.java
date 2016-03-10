@@ -24,6 +24,15 @@ public class Customer {
         this.accounts = accounts;
     }
     
+    public Customer(String cpr, String name, int phone, String email, String password) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.cpr = cpr;
+        accounts = new ArrayList<>();
+    }
+    
     //--------------------------------------------------------------------------
     // Accesors
     //--------------------------------------------------------------------------

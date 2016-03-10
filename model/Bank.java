@@ -1,5 +1,8 @@
 package model;
 
+import handler.CustomerHandler;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -7,12 +10,14 @@ import java.util.ArrayList;
  * @author Morten Ricki Rasmussen 
  */
 public class Bank {
-    private ArrayList<Customer> customers;
+    private Customer customer;
     private Current account;
     private Current cash;
+    private CustomerHandler ch;
     
-    public Bank() {
+    public Bank() throws ClassNotFoundException, SQLException, IOException {
         setInfo();
+        ch = new CustomerHandler();
     }
      
     /**
@@ -22,8 +27,9 @@ public class Bank {
         
     }
     
-    public void setCustomers(ArrayList customers) {
-        this.customers = customers;
+    
+    public void setCustomers(Customer customer) {
+        this.customer = customer;
     }
     
     public void setAccount(Current account) {
@@ -33,9 +39,19 @@ public class Bank {
     public void setCash(Current cash) {
         this.cash = cash;
     }
+        
+    public CustomerHandler getCustomerHandler(){
+        return ch;
+    }
     
-    public void addCustomer(Customer customer) {
-        customers.add(customer);
+    public Customer getCustomer(){
+        return customer;
+    }
+    
+    public void updateCustomer(String cpr, String name, int phone, String email){
+        customer.setName(name);
+        customer.setPhone(phone);
+        customer.setEmail(email);
     }
     
 }
