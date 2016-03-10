@@ -6,7 +6,9 @@
 package customerControl;
 
 import java.util.ArrayList;
+import model.Account;
 import model.Bank;
+import model.Customer;
 
 /**
  *
@@ -15,12 +17,15 @@ import model.Bank;
 public class CustomerViewControl {
     
     private Bank bank;
+    private Customer customer;
 
-    public CustomerViewControl(Bank bank) {
+    public CustomerViewControl(Bank bank, Customer customer) {
         this.bank = bank;
+        this.customer = customer;
     }
     
-    public ArrayList<account> getAccount(String cpr){
+    public ArrayList<Account> getAccount(){
+        ArrayList<Account> account = new ArrayList();
         
     }
     
