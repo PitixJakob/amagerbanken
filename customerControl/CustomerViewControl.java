@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import model.Account;
 import model.Bank;
 import model.Customer;
-import handler.AccountHandler;
 
 /**
  *
@@ -34,7 +33,7 @@ public class CustomerViewControl {
         return customer.getAccounts();
     }
     
-    public void transfer(Account fromAccount, Account toAccount, long amount){
-        
+    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException{
+        bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
     }
 }
