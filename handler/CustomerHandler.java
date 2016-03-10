@@ -30,7 +30,7 @@ public class CustomerHandler {
         pst.setString(1, "%" + searchName + "%");
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
-            int cpr = rs.getInt("cpr");
+            String cpr = rs.getString("cpr");
             String name = rs.getString("customer_name");
             int phone = rs.getInt("phone");
             String email = rs.getString("email");
@@ -43,10 +43,10 @@ public class CustomerHandler {
         return customers;
     }
 
-    public boolean validateLogin(int cpr, char[] password) throws SQLException {
+    public boolean validateLogin(String cpr, char[] password) throws SQLException {
         String stmt = "SELECT customer.cpr, customer.customer_password FROM customer WHERE cpr=? AND customer_password=?";
         PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.setInt(1, cpr);
+        pst.setString(1, cpr);
         pst.setString(2, new String(password));
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
@@ -60,15 +60,15 @@ public class CustomerHandler {
 
     }
 
-    public Customer customerLogin(int cpr, char[] password) throws SQLException {
+    public Customer customerLogin(String cpr, char[] password) throws SQLException {
         if (validateLogin(cpr, password)) {
             Customer customer = null;
             String stmt = "SELECT * FROM customer WHERE cpr=?";
             PreparedStatement pst = db.getPrepStmt(stmt);
-            pst.setInt(1, cpr);
+            pst.setString(1, cpr);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                int cprNum = rs.getInt("cpr");
+                String cprNum = rs.getString("cpr");
                 String name = rs.getString("customer_name");
                 int phone = rs.getInt("phone");
                 String email = rs.getString("email");
@@ -83,11 +83,11 @@ public class CustomerHandler {
         return null;
     }
     
-    public void addCustomer(int cpr, String name, int phone, String email, String password) throws SQLException{
+    public void addCustomer(String cpr, String name, int phone, String email, String password) throws SQLException{
         
         String stmt = "INSERT INTO customer (cpr, customer_name, phone, email, customer_password) VALUES (?,?,?,?,?)";
         PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.setInt(1, cpr);
+        pst.setString(1, cpr);
         pst.setString(2, name);
         pst.setInt(3, phone);
         pst.setString(4, email);
@@ -96,26 +96,26 @@ public class CustomerHandler {
         pst.close();
     }
     
-    public void updateCustomer(int cpr, String name, int phone, String email) throws SQLException{
+    public void updateCustomer(String cpr, String name, int phone, String email) throws SQLException{
         
         String stmt = "UPDATE customer SET name = ? WHERE cpr = ? ";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.setString(2, name);
-        pst.setInt(1, cpr);
+        pst.setString(1, cpr);
         pst.executeUpdate();
         pst.close();
         
         stmt = "UPDATE customer SET phone = ? WHERE cpr = ? ";
         pst = db.getPrepStmt(stmt);
         pst.setInt(3, phone);
-        pst.setInt(1, cpr);
+        pst.setString(1, cpr);
         pst.executeUpdate();
         pst.close();
         
         stmt = "UPDATE customer SET email = ? WHERE cpr = ? ";
         pst = db.getPrepStmt(stmt);
         pst.setString(4, email);
-        pst.setInt(1, cpr);
+        pst.setString(1, cpr);
         pst.executeUpdate();
         pst.close();
     }
