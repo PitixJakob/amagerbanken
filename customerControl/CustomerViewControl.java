@@ -34,7 +34,7 @@ public class CustomerViewControl {
         return customer.getAccounts();
     }
     
-    public void transfer(){
-        
+    public void transfer(long amount){
+        customer.
     }
 }
