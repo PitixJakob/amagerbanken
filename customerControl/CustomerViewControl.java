@@ -31,9 +31,10 @@ public class CustomerViewControl {
     
     public ArrayList<Account> getAccounts(){
         ArrayList<Account> account = new ArrayList();
-        
+        return customer.getAccounts();
     }
     
-    
-    
+    public void transfer(){
+        
+    }
 }
