@@ -29,7 +29,7 @@ public class Main {
             for (Customer customer : customers) {
                 System.out.println(customer.getCpr());
             }
-            System.out.println(ch.customerLogin(1111111111, "12345".toCharArray()));
+            System.out.println(ch.customerLogin("1111111111", "12345".toCharArray()));
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

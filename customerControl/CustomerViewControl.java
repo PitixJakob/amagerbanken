@@ -5,23 +5,23 @@
  */
 package customerControl;
 
+import java.util.ArrayList;
 import model.Bank;
 
 /**
  *
  * @author Gudni
  */
-public class CustomerControl {
+public class CustomerViewControl {
     
     private Bank bank;
-    private String password;
-    private int cpr;
 
-    public CustomerControl(Bank bank, int cpr, String password) {
+    public CustomerViewControl(Bank bank) {
         this.bank = bank;
-        this.cpr = cpr;
-        this.password = password;
-         
+    }
+    
+    public ArrayList<account> getAccount(String cpr){
+        
     }
     
     
