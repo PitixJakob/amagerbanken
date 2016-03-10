@@ -40,6 +40,10 @@ public class BankViewController {
         return bank.getCash();
     }
     
+    public void setCustomer(Customer c) {
+        bank.setCustomer(c);
+    }
+    
     
 
 }
