@@ -5,7 +5,7 @@
  */
 package customerGui;
 
-import customerControl.CustomerControl;
+import customerControl.CustomerViewControl;
 
 /**
  *
@@ -13,7 +13,7 @@ import customerControl.CustomerControl;
  */
 public class CustomerGui extends javax.swing.JFrame {
     
-    private CustomerControl cc;
+    private CustomerViewControl cc;
 
     /**
      * Creates new form CustomerGui
