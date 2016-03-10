@@ -23,11 +23,11 @@ public class AccountHandler {
         db = DBConnector.getDB();
     }
 
-    public ArrayList<Account> getAccounts(int cpr) throws SQLException {
+    public ArrayList<Account> getAccounts(String cpr) throws SQLException {
         ArrayList<Account> accounts = new ArrayList<>();
         String stmt = "SELECT * FROM account WHERE customer_cpr=?";
         PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.setInt(1, cpr);
+        pst.setString(1, cpr);
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             int accountType = rs.getInt("account_type");
