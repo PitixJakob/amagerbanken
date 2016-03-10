@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Account;
+import model.Current;
 import model.Customer;
 
 /**
@@ -443,6 +444,11 @@ public class AccountPanel extends javax.swing.JPanel {
         transferLabel6.setText("Beløb");
 
         jButton2.setText("Overfør");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         transferLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         transferLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -611,7 +617,21 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_interestButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        BankGui.updateDialog(overdrawDialog);
+        if(!jTextField5.getText().isEmpty()) {            
+            try {
+                
+                long amount = (long) Double.parseDouble(jTextField5.getText()) * 100;
+                
+                int acc = Integer.parseInt(jTextField7.getText());
+                int reg = Integer.parseInt(jTextField6.getText());
+                
+                Account toAccount = new Current(acc, reg);
+                
+                bvc.transfer(account, toAccount, amount);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -703,8 +723,13 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_inOutButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(!jTextField4.getText().isEmpty()) {
-            bvc.
+        if(!jTextField4.getText().isEmpty()) {            
+            try {
+                long amount = (long) Double.parseDouble(jTextField4.getText()) * 100;
+                bvc.transfer(account, (Account) jComboBox1.getSelectedItem(), amount);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

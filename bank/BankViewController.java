@@ -61,8 +61,8 @@ public class BankViewController {
         bank.getCustomerHandler().getAccountHandler().withdraw(bank.getAccount(), bank.getCash(), account, amount);
     }
     
-    public void transfer(Account account, long amount) {
-        
+    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
     }
     
     
