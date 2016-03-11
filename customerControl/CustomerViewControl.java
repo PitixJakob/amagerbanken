@@ -25,8 +25,12 @@ public class CustomerViewControl {
         customer = null;
     }
     
-    public void login(String cpr, char[] password) throws SQLException{
+    public boolean login(String cpr, char[] password) throws SQLException{
         customer = bank.getCustomerHandler().customerLogin(cpr, password);
+        if (customer == null){
+            return false;
+        }
+        return true;
     }
     
     public ArrayList<Account> getAccounts(){
