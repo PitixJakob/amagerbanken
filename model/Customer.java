@@ -93,6 +93,10 @@ public class Customer {
         accounts.add(account);
     } 
     
+    public String toString() {
+        return name + " - " + cpr;
+    }
+    
     
     
 }

@@ -87,12 +87,12 @@ public class CustomerHandler {
         return null;
     }
     
-    public void addCustomer(String cpr, String name, int phone, String email, String password) throws SQLException{
+    public void addCustomer(String name, String cpr, int phone, String email, String password) throws SQLException{
         
-        String stmt = "INSERT INTO customer (cpr, customer_name, phone, email, customer_password) VALUES (?,?,?,?,?)";
+        String stmt = "INSERT INTO customer (customer_name, cpr, phone, email, customer_password) VALUES (?,?,?,?,?)";
         PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.setString(1, cpr);
-        pst.setString(2, name);
+        pst.setString(1, name);
+        pst.setString(2, cpr);
         pst.setInt(3, phone);
         pst.setString(4, email);
         pst.setString(5, password);

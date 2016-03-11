@@ -19,9 +19,11 @@ public class BankViewController {
         this.bank = bank;
     }
     
-    public void addCustomer(String cpr, String name, int phone, String email, String password) throws SQLException{
-        bank.getCustomerHandler().addCustomer(cpr, name, phone, email, password);
-        bank.setCustomer(new Customer(cpr, name, phone, email, password));
+    public Customer addCustomer(String name, String cpr, int phone, String email, String password) throws SQLException{
+        bank.getCustomerHandler().addCustomer(name, cpr, phone, email, password);
+        Customer c = new Customer(cpr, name, phone, email, password);
+        bank.setCustomer(c);
+        return c;
     }
     
     public void updateCustomer(String name, int phone, String email) throws SQLException{

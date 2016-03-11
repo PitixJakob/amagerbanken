@@ -18,5 +18,5 @@ public class Current extends Account{
     public int getAccountType() {
         return 1;
     }
-
+    
 }

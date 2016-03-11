@@ -37,20 +37,20 @@ public class AccountPanel extends javax.swing.JPanel {
         this.customer = customer;
         model = new DefaultComboBoxModel();
         this.bvc = bvc;
+        setData();
     }
 
     public void setData() {
         String reg = "" + account.getRegNr();
         String number = "" + account.getAccountNumber();
         String regAndNumber = reg + " - " + number;
-        String balance = "" + account.getBalance();
+        String balance = account.getBalanceFormat();
         accNumberField.setText(regAndNumber);
         balanceField.setText(balance);
         interestLabel.setText("Nuværende Rente: " + account.getInterest());
         overdrawLabel.setText("Nuværende overtræk: " + account.getOverdraw());
         transferLabel1.setText("Du overfører fra " + regAndNumber);
         transferLabel4.setText("Du overfører fra " + regAndNumber);
-      
     }
 
     /**
@@ -275,6 +275,7 @@ public class AccountPanel extends javax.swing.JPanel {
         });
 
         buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jRadioButton1.setText("Indbetaling");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,6 +284,7 @@ public class AccountPanel extends javax.swing.JPanel {
         });
 
         buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jRadioButton2.setText("Udbetaling");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,6 +294,8 @@ public class AccountPanel extends javax.swing.JPanel {
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel12.setText("Beløb");
+
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -353,6 +357,8 @@ public class AccountPanel extends javax.swing.JPanel {
         transferLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         transferLabel1.setText("Du er ved at overføre fra kontoen:");
 
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
         transferLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         transferLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         transferLabel2.setText("Overfør til:");
@@ -360,6 +366,8 @@ public class AccountPanel extends javax.swing.JPanel {
         transferLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         transferLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         transferLabel3.setText("Beløb");
+
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         jButton1.setText("Overfør");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -405,11 +413,11 @@ public class AccountPanel extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(transferLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(transferLabel3)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -443,12 +451,19 @@ public class AccountPanel extends javax.swing.JPanel {
         transferLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         transferLabel6.setText("Beløb");
 
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton2.setText("Overfør");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         transferLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         transferLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -522,7 +537,7 @@ public class AccountPanel extends javax.swing.JPanel {
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(1140, 300));
+        setMaximumSize(new java.awt.Dimension(1140, 130));
         setMinimumSize(new java.awt.Dimension(1140, 0));
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(1140, 130));
@@ -539,6 +554,7 @@ public class AccountPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Saldo");
 
+        interestButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         interestButton.setText("Rente");
         interestButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -546,6 +562,7 @@ public class AccountPanel extends javax.swing.JPanel {
             }
         });
 
+        overdrawButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         overdrawButton.setText("Overtræk");
         overdrawButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -553,6 +570,7 @@ public class AccountPanel extends javax.swing.JPanel {
             }
         });
 
+        inOutButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         inOutButton.setText("Ind/Udbetaling");
         inOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -560,6 +578,7 @@ public class AccountPanel extends javax.swing.JPanel {
             }
         });
 
+        transferButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         transferButton.setText("Overfør");
         transferButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -580,7 +599,7 @@ public class AccountPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(interestButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(overdrawButton)

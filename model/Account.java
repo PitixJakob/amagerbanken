@@ -1,5 +1,8 @@
 package model;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  *
  * @author Morten Ricki Rasmussen 
@@ -49,6 +52,12 @@ public abstract class Account {
 
     public long getOverdraw() {
         return overdraw;
+    }
+    
+    public String getBalanceFormat() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        String b = nf.format(balance);
+        return b;
     }
     
     //--------------------------------------------------------------------------
