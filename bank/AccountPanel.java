@@ -20,7 +20,7 @@ import model.Customer;
  * @author Morten Ricki Rasmussen
  */
 public class AccountPanel extends javax.swing.JPanel {
-    
+
     private Customer customer;
     private Account toAccount;
     private Account account;
@@ -302,6 +302,11 @@ public class AccountPanel extends javax.swing.JPanel {
         jLabel12.setText("Beløb");
 
         jTextField3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -688,14 +693,18 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_interestButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(!jTextField5.getText().isEmpty()) {            
+        if (!jTextField5.getText().isEmpty()) {
             try {
-                
-                long amount = (long) Double.parseDouble(jTextField5.getText()) * 100;
-                
+                long amount;
+                if (jTextField5.getText().contains(".")) {
+                    amount = (long) (Double.parseDouble(jTextField5.getText()) * 100);
+                } else {
+                    amount = (long) (Long.parseLong(jTextField5.getText()));
+                }
+
                 int acc = Integer.parseInt(jTextField7.getText());
                 int reg = Integer.parseInt(jTextField6.getText());
-                
+
                 toAccount = new Current(acc, reg);
                 commitNumber = 3;
                 bvc.transfer(account, toAccount, amount);
@@ -726,7 +735,7 @@ public class AccountPanel extends javax.swing.JPanel {
                     savingsAmount = (long) (Double.parseDouble(jTextField5.getText()) * 100);
                     bvc.transferCommit(account, toAccount, savingsAmount);
                     break;
-                case 4: 
+                case 4:
                     currentAmount = (long) (Double.parseDouble(jTextField6.getText()) * 100);
                     bvc.transferCommit(account, toAccount, currentAmount);
                     break;
@@ -745,7 +754,7 @@ public class AccountPanel extends javax.swing.JPanel {
             BankGui.updateDialog(interestDialog);
         } catch (SQLException ex) {
             Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }//GEN-LAST:event_editInterestButtonActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -761,7 +770,12 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void inOutCommitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOutCommitButtonActionPerformed
-        long amount = (long) (Double.parseDouble(jTextField3.getText())*100);
+        long amount;
+        if (jTextField3.getText().contains(".")) {
+            amount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
+        } else {
+            amount = (long) (Long.parseLong(jTextField3.getText()));
+        }
         if (jRadioButton1.isSelected()) {
             try {
                 bvc.deposit(account, amount);
@@ -807,7 +821,13 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_transferButtonActionPerformed
 
     private void editOverdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editOverdrawButtonActionPerformed
-        long overdraw = (long) (Double.parseDouble(jTextField2.getText())*100);
+        long overdraw;
+        if (jTextField2.getText().contains(".")) {
+            overdraw = (long) (Double.parseDouble(jTextField2.getText()) * 100);
+        } else {
+            overdraw = Long.parseLong(jTextField2.getText());
+        }
+
         try {
             bvc.editOverdraw(account, overdraw);
             JOptionPane.showMessageDialog(null, "Overtræk Ændret");
@@ -826,9 +846,14 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_inOutButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(!jTextField4.getText().isEmpty()) {            
+        if (!jTextField4.getText().isEmpty()) {
             try {
-                long amount = (long) Double.parseDouble(jTextField4.getText()) * 100;
+                long amount;
+                if (jTextField4.getText().contains(".")) {
+                    amount = (long) (Double.parseDouble(jTextField4.getText()) * 100);
+                } else {
+                    amount = (long) (Long.parseLong(jTextField4.getText()));
+                }
                 toAccount = (Account) jComboBox1.getSelectedItem();
                 bvc.transfer(account, toAccount, amount);
                 commitNumber = 3;
@@ -848,6 +873,10 @@ public class AccountPanel extends javax.swing.JPanel {
             Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
