@@ -22,6 +22,7 @@ import model.Customer;
  * @author Morten Ricki Rasmussen
  */
 public class BankGui extends javax.swing.JFrame {
+
     private CardLayout layout;
     private BankViewController bvc;
     private ArrayList<Customer> customer;
@@ -35,7 +36,7 @@ public class BankGui extends javax.swing.JFrame {
         this.bvc = bvc;
         this.setLocationRelativeTo(null);
     }
-    
+
     public static void updateDialog(JDialog dialog) {
         dialog.pack();
         dialog.setLocationRelativeTo(null);
@@ -231,14 +232,15 @@ public class BankGui extends javax.swing.JFrame {
                 .addGroup(newAccountDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(newAccountDialogLayout.createSequentialGroup()
-                        .addGroup(newAccountDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jLabel19)
-                            .addComponent(jTextField4)
+                        .addGroup(newAccountDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(newAccountDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jRadioButton1)
+                                .addComponent(jLabel19)
+                                .addComponent(jTextField4))
                             .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5))
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(newAccountDialogLayout.createSequentialGroup()
@@ -360,7 +362,6 @@ public class BankGui extends javax.swing.JFrame {
         jLabel16.setText("Konti");
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         showAccountsPanel.setBackground(new java.awt.Color(255, 255, 255));
         showAccountsPanel.setLayout(new javax.swing.BoxLayout(showAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
@@ -697,7 +698,7 @@ public class BankGui extends javax.swing.JFrame {
             layout = (CardLayout) jPanel1.getLayout();
             layout.next(jPanel1);
         }
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
@@ -705,7 +706,7 @@ public class BankGui extends javax.swing.JFrame {
     }//GEN-LAST:event_emailFieldActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         try {
             customer = bvc.getCustomers(nameField1.getText());
         } catch (SQLException ex) {
@@ -729,11 +730,38 @@ public class BankGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        BankGui.updateDialog(newAccountDialog);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+        int accType = 1;
+        double interest;
+        long overdraw;
+        Customer c;
+
+        if (jRadioButton1.isSelected() || jRadioButton2.isSelected()) {
+            try {
+                if (jRadioButton1.isSelected()) {
+                    accType = 1;
+                } else if (jRadioButton2.isSelected()) {
+                    accType = 2;
+                }
+                interest = Double.parseDouble(jTextField4.getText());
+                overdraw = (long) (Double.parseDouble(jTextField5.getText()) * 100);
+                c = bvc.getCustomer();
+                
+                bvc.addAccount(accType, interest, overdraw, c);
+                showAccountsPanel.removeAll();
+                for (Account a : c.getAccounts()) {
+                    showAccountsPanel.add(new AccountPanel(a, c, bvc));
+                }
+                showAccountsPanel.revalidate();
+                showAccountsPanel.repaint();
+                BankGui.updateDialog(newAccountDialog);
+            } catch (SQLException ex) {
+                Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
