@@ -7,6 +7,8 @@ package main;
 
 import bank.BankGui;
 import bank.BankViewController;
+import customerControl.CustomerViewControl;
+import customerGui.CustomerGui;
 import handler.CustomerHandler;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,6 +39,8 @@ public class Main {
         }
         BankViewController bvc = new BankViewController(bank);
         BankGui bg = new BankGui(bvc);
+        CustomerViewControl cvc = new CustomerViewControl(bank);
+        CustomerGui cg = new CustomerGui(cvc);
         bg.validate();
         bg.setLocationRelativeTo(null);
         bg.setVisible(false);
