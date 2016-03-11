@@ -134,10 +134,12 @@ public class AccountHandler {
             pst.setInt(2, fromAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
-            stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
-            pst = db.getPrepStmt(stmt);
-            pst.setLong(1, amount);
-            pst.setInt(2, toAccount.getAccountNumber());
+            if (toAccount.getRegNr() == 4700) {
+                stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
+                pst = db.getPrepStmt(stmt);
+                pst.setLong(1, amount);
+                pst.setInt(2, toAccount.getAccountNumber());
+            }
             pst.executeUpdate();
             pst.close();
         }

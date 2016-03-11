@@ -4,6 +4,8 @@ import handler.CustomerHandler;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,15 +18,21 @@ public class Bank {
     private CustomerHandler ch;
     
     public Bank() throws ClassNotFoundException, SQLException, IOException {
-        setInfo();
         ch = new CustomerHandler();
+        setInfo();
     }
      
     /**
      * Method loads bank and info from database
      */
     public void setInfo() {
-        
+        try {
+            ArrayList accounts = ch.getAccountHandler().getAccounts("0000000000");
+            account = (Current) accounts.get(0);
+            cash = (Current) accounts.get(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Bank.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
