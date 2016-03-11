@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Account;
 import model.Current;
+import model.Customer;
 import model.Saving;
 
 /**
@@ -20,6 +21,34 @@ public class AccountHandler {
 
     public AccountHandler() throws ClassNotFoundException, SQLException, IOException {
         db = DBConnector.getDB();
+    }
+
+    public void addAccount(int accountType, double interest, long overdraw, Customer customer) throws SQLException {
+        String stmt = "SELECT account.account_number FROM account ORDER BY account_number DESC LIMIT 1";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        ResultSet rs = pst.executeQuery();
+        int prevAccountNumber = 0;
+        while (rs.next()) {
+            prevAccountNumber = rs.getInt("account_number");
+        }
+        pst.close();
+        if (prevAccountNumber != 0) {
+            stmt = "INSERT INTO account (account_number, account_type, interest, overdraw, customer_cpr) VALUES (?, ?, ?, ?, ?)";
+            pst = db.getPrepStmt(stmt);
+            pst.setInt(1, prevAccountNumber+1);
+            pst.setInt(2, accountType);
+            pst.setDouble(3, interest);
+            pst.setLong(4, overdraw);
+            pst.setString(5, customer.getCpr());
+            if (accountType == 1){
+                customer.addAccount(new Current(prevAccountNumber+1, 4700, 0, interest, overdraw));
+            }
+            if (accountType == 2){
+                customer.addAccount(new Saving(prevAccountNumber+1, 4700, 0, interest, overdraw));
+            }
+        }
+        rs.close();
+        pst.close();
     }
 
     public ArrayList<Account> getAccounts(String cpr) throws SQLException {
@@ -94,15 +123,16 @@ public class AccountHandler {
             pst.close();
         }
     }
-    
-    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException{
-        if (fromAccount.getBalance() - amount >= -fromAccount.getOverdraw()){
+
+    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
+        if (fromAccount.getBalance() - amount >= -fromAccount.getOverdraw()) {
             begin();
             String stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
             PreparedStatement pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
             pst.setInt(2, fromAccount.getAccountNumber());
             pst.executeUpdate();
+            pst.close();
             stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
             pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
@@ -132,8 +162,8 @@ public class AccountHandler {
         account.setOverdraw(newOverdraw);
         pst.close();
     }
-    
-    public void begin() throws SQLException{
+
+    public void begin() throws SQLException {
         String stmt = "BEGIN";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
@@ -159,8 +189,8 @@ public class AccountHandler {
         cashAccount.withdraw(amount);
         userAccount.withdraw(amount);
     }
-    
-    public void commitTransfer(Account fromAccount, Account toAccount, long amount) throws SQLException{
+
+    public void commitTransfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
         String stmt = "COMMIT";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
