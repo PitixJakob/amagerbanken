@@ -40,6 +40,7 @@ public class AccountHandler {
             pst.setDouble(3, interest);
             pst.setLong(4, overdraw);
             pst.setString(5, customer.getCpr());
+            pst.executeUpdate();
             if (accountType == 1){
                 customer.addAccount(new Current(prevAccountNumber+1, 4700, 0, interest, overdraw));
             }
