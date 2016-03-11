@@ -102,24 +102,24 @@ public class CustomerHandler {
     
     public void updateCustomer(String cpr, String name, int phone, String email) throws SQLException{
         
-        String stmt = "UPDATE customer SET name = ? WHERE cpr = ? ";
+        String stmt = "UPDATE customer SET customer_name = ? WHERE cpr = ? ";
         PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.setString(2, name);
-        pst.setString(1, cpr);
+        pst.setString(1, name);
+        pst.setString(2, cpr);
         pst.executeUpdate();
         pst.close();
         
         stmt = "UPDATE customer SET phone = ? WHERE cpr = ? ";
         pst = db.getPrepStmt(stmt);
-        pst.setInt(3, phone);
-        pst.setString(1, cpr);
+        pst.setInt(1, phone);
+        pst.setString(2, cpr);
         pst.executeUpdate();
         pst.close();
         
         stmt = "UPDATE customer SET email = ? WHERE cpr = ? ";
         pst = db.getPrepStmt(stmt);
-        pst.setString(4, email);
-        pst.setString(1, cpr);
+        pst.setString(1, email);
+        pst.setString(2, cpr);
         pst.executeUpdate();
         pst.close();
     }
