@@ -66,4 +66,28 @@ public class BankViewController {
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
     }
+    
+    public void addAccount(int accType, double interest, long overdraw, Customer customer) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().addAccount(accType, interest, overdraw, customer);
+    }
+    
+    public Customer getCustomer() {
+        return bank.getCustomer();
+    }
+    
+    public void depositCommit(Account account, long amount) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().commitDeposit(bank.getAccount(), bank.getCash(), account, amount);
+    }
+    
+    public void withdrawCommit(Account account, long amount) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().commitWithdraw(bank.getAccount(), bank.getCash(), account, amount);
+    }
+    
+    public void transferCommit(Account from, Account to, long amount) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().commitTransfer(from, to, amount);
+    }
+    
+    public void rollback() throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().rollback();
+    }
 }
