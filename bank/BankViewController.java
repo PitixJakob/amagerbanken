@@ -77,6 +77,7 @@ public class BankViewController {
     
     public void depositCommit(Account account, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().commitDeposit(bank.getAccount(), bank.getCash(), account, amount);
+        System.out.println("DONE!");
     }
     
     public void withdrawCommit(Account account, long amount) throws SQLException {

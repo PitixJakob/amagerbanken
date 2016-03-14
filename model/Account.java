@@ -56,7 +56,7 @@ public abstract class Account {
     
     public String getBalanceFormat() {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        String b = nf.format(balance);
+        String b = nf.format(((double) balance)/100);
         return b;
     }
     

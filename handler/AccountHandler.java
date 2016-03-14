@@ -35,17 +35,17 @@ public class AccountHandler {
         if (prevAccountNumber != 0) {
             stmt = "INSERT INTO account (account_number, account_type, interest, overdraw, customer_cpr) VALUES (?, ?, ?, ?, ?)";
             pst = db.getPrepStmt(stmt);
-            pst.setInt(1, prevAccountNumber+1);
+            pst.setInt(1, prevAccountNumber + 1);
             pst.setInt(2, accountType);
             pst.setDouble(3, interest);
             pst.setLong(4, overdraw);
             pst.setString(5, customer.getCpr());
             pst.executeUpdate();
-            if (accountType == 1){
-                customer.addAccount(new Current(prevAccountNumber+1, 4700, 0, interest, overdraw));
+            if (accountType == 1) {
+                customer.addAccount(new Current(prevAccountNumber + 1, 4700, 0, interest, overdraw));
             }
-            if (accountType == 2){
-                customer.addAccount(new Saving(prevAccountNumber+1, 4700, 0, interest, overdraw));
+            if (accountType == 2) {
+                customer.addAccount(new Saving(prevAccountNumber + 1, 4700, 0, interest, overdraw));
             }
         }
         rs.close();
@@ -139,9 +139,9 @@ public class AccountHandler {
                 pst = db.getPrepStmt(stmt);
                 pst.setLong(1, amount);
                 pst.setInt(2, toAccount.getAccountNumber());
+                pst.executeUpdate();
+                pst.close();
             }
-            pst.executeUpdate();
-            pst.close();
         }
     }
 
@@ -167,14 +167,14 @@ public class AccountHandler {
     }
 
     public void begin() throws SQLException {
-        String stmt = "BEGIN";
+        String stmt = "BEGIN;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
         pst.close();
     }
 
     public void commitDeposit(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
-        String stmt = "COMMIT";
+        String stmt = "COMMIT;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
         pst.close();
@@ -184,7 +184,7 @@ public class AccountHandler {
     }
 
     public void commitWithdraw(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
-        String stmt = "COMMIT";
+        String stmt = "COMMIT;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
         pst.close();
@@ -194,7 +194,7 @@ public class AccountHandler {
     }
 
     public void commitTransfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
-        String stmt = "COMMIT";
+        String stmt = "COMMIT;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
         pst.close();
@@ -203,7 +203,7 @@ public class AccountHandler {
     }
 
     public void rollback() throws SQLException {
-        String stmt = "ROLLBACK";
+        String stmt = "ROLLBACK;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
         pst.close();

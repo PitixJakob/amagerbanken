@@ -697,9 +697,9 @@ public class AccountPanel extends javax.swing.JPanel {
             try {
                 long amount;
                 if (jTextField5.getText().contains(".")) {
-                    amount = (long) (Double.parseDouble(jTextField5.getText()) * 100);
+                    amount = (long) (Double.parseDouble(jTextField5.getText()));
                 } else {
-                    amount = (long) (Long.parseLong(jTextField5.getText()));
+                    amount = (long) (Double.parseDouble(jTextField5.getText()) * 100);
                 }
 
                 int acc = Integer.parseInt(jTextField7.getText());
@@ -723,20 +723,36 @@ public class AccountPanel extends javax.swing.JPanel {
             long currentAmount;
             switch (commitNumber) {
                 case 1:
-                    inOutAmount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
+                    if (jTextField3.getText().contains(".")) {
+                        inOutAmount = (long) (Double.parseDouble(jTextField3.getText()));
+                    } else {
+                        inOutAmount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
+                    }
                     System.out.println(inOutAmount);
                     bvc.depositCommit(account, inOutAmount);
                     break;
                 case 2:
-                    inOutAmount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
+                    if (jTextField3.getText().contains(".")) {
+                        inOutAmount = (long) (Double.parseDouble(jTextField3.getText()));
+                    } else {
+                        inOutAmount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
+                    }
                     bvc.withdrawCommit(account, inOutAmount);
                     break;
                 case 3:
-                    savingsAmount = (long) (Double.parseDouble(jTextField5.getText()) * 100);
+                    if (jTextField4.getText().contains(".")) {
+                        savingsAmount = (long) (Double.parseDouble(jTextField4.getText()));
+                    } else {
+                        savingsAmount = (long) (Double.parseDouble(jTextField4.getText()) * 100);
+                    }
                     bvc.transferCommit(account, toAccount, savingsAmount);
                     break;
                 case 4:
-                    currentAmount = (long) (Double.parseDouble(jTextField6.getText()) * 100);
+                    if (jTextField3.getText().contains(".")) {
+                        currentAmount = (long) (Double.parseDouble(jTextField5.getText()));
+                    } else {
+                        currentAmount = (long) (Double.parseDouble(jTextField5.getText()) * 100);
+                    }
                     bvc.transferCommit(account, toAccount, currentAmount);
                     break;
             }
@@ -771,29 +787,27 @@ public class AccountPanel extends javax.swing.JPanel {
 
     private void inOutCommitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOutCommitButtonActionPerformed
         long amount;
-        if (jTextField3.getText().contains(".")) {
-            amount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
-        } else {
-            amount = (long) (Long.parseLong(jTextField3.getText()));
-        }
-        if (jRadioButton1.isSelected()) {
-            try {
+//        if (jTextField3.getText().contains(".")) {
+        amount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
+//        } else {
+//            amount = Long.parseLong(jTextField3.getText()) * 100;
+//        }
+
+    
+        try {
+            System.out.println(amount);
+            if (jRadioButton1.isSelected()) {
                 bvc.deposit(account, amount);
+                BankGui.updateDialog(inOutDialog);
+                BankGui.updateDialog(confirmDialog);
                 commitNumber = 1;
-                BankGui.updateDialog(confirmDialog);
-                BankGui.updateDialog(inOutDialog);
-            } catch (SQLException ex) {
-                Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (jRadioButton2.isSelected()) {
-            try {
+            } else if (jRadioButton2.isSelected()) {
                 bvc.withdraw(account, amount);
-                commitNumber = 2;
-                BankGui.updateDialog(confirmDialog);
                 BankGui.updateDialog(inOutDialog);
-            } catch (SQLException ex) {
-                Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+                BankGui.updateDialog(confirmDialog);
+                commitNumber = 2;
             }
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_inOutCommitButtonActionPerformed
 
