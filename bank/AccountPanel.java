@@ -51,7 +51,7 @@ public class AccountPanel extends javax.swing.JPanel {
         accNumberField.setText(regAndNumber);
         balanceField.setText(balance);
         interestLabel.setText("Nuværende Rente: " + account.getInterest());
-        overdrawLabel.setText("Nuværende overtræk: " + account.getOverdraw());
+        overdrawLabel.setText("Nuværende overtræk: " + account.getOverdrawFormat());
         transferLabel1.setText("Du overfører fra " + regAndNumber);
         transferLabel4.setText("Du overfører fra " + regAndNumber);
     }

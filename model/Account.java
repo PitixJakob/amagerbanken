@@ -56,7 +56,13 @@ public abstract class Account {
     
     public String getBalanceFormat() {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        String b = nf.format(((double) balance)/100);
+        String b = nf.format(((double) balance) / 100);
+        return b;
+    }
+    
+    public String getOverdrawFormat() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        String b = nf.format(((double) overdraw / 100));
         return b;
     }
     
