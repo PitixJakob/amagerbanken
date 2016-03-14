@@ -760,6 +760,10 @@ public class BankGui extends javax.swing.JFrame {
                 BankGui.updateDialog(newAccountDialog);
             } catch (SQLException ex) {
                 Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jButton8ActionPerformed
