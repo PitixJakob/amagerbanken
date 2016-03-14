@@ -39,7 +39,7 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
             jLabel1.setText(cvc.getCustomer().getName());
             jPanel2.removeAll();
             for (Account account : cvc.getAccounts()) {
-                AccountPanel a = new AccountPanel(account, cvc.getCustomer(), cvc);
+                AccountPanel1 a = new AccountPanel1(account, cvc.getCustomer(), cvc);
                 jPanel2.add(a);
             }
             jPanel2.revalidate();
