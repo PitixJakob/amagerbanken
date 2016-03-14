@@ -6,6 +6,8 @@
 package customerGui;
 
 import customerControl.CustomerViewControl;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author Gudni
  */
-public class CustomerGui extends javax.swing.JFrame {
+public class CustomerGui extends javax.swing.JFrame implements ActionListener {
 
     private CustomerViewControl cvc;
 
@@ -40,6 +42,11 @@ public class CustomerGui extends javax.swing.JFrame {
         } else {
             dialog.setVisible(true);
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
     }
 
     /**

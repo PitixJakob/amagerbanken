@@ -395,6 +395,7 @@ public class AccountPanel extends javax.swing.JPanel {
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton1.setText("Overfør");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
