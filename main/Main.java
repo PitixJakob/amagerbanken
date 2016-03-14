@@ -10,6 +10,7 @@ import bank.BankViewController;
 import customerControl.CustomerViewControl;
 import customerGui.CustomerGui;
 import handler.CustomerHandler;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -39,8 +40,10 @@ public class Main {
         }
         BankViewController bvc = new BankViewController(bank);
         BankGui bg = new BankGui(bvc);
+        bank.addListener((ActionListener) bg);
         CustomerViewControl cvc = new CustomerViewControl(bank);
         CustomerGui cg = new CustomerGui(cvc);
+        bank.addListener((ActionListener) cg);
         bg.validate();
         bg.setLocationRelativeTo(null);
         bg.setVisible(false);
