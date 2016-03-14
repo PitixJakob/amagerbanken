@@ -80,6 +80,7 @@ public class BankViewController {
     
     public void commit() throws SQLException, ClassNotFoundException, IOException {
         bank.getCustomerHandler().getAccountHandler().commit();
+        bank.notifyAllListeners();
     }
     
     public void rollback() throws SQLException {
