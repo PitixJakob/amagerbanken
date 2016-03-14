@@ -173,33 +173,8 @@ public class AccountHandler {
         pst.close();
     }
 
-    public void commitDeposit(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
-        String stmt = "COMMIT;";
-        PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.execute();
-        pst.close();
-        bankAccount.withdraw(amount);
-        cashAccount.deposit(amount);
-        userAccount.deposit(amount);
-    }
-
-    public void commitWithdraw(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
-        String stmt = "COMMIT;";
-        PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.execute();
-        pst.close();
-        bankAccount.deposit(amount);
-        cashAccount.withdraw(amount);
-        userAccount.withdraw(amount);
-    }
-
-    public void commitTransfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
-        String stmt = "COMMIT;";
-        PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.execute();
-        pst.close();
-        fromAccount.withdraw(amount);
-        toAccount.deposit(amount);
+    public void commit() throws SQLException {
+        db.getCon().commit();
     }
 
     public void rollback() throws SQLException {

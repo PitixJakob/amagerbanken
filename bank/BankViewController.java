@@ -78,19 +78,8 @@ public class BankViewController {
         return bank.getCustomer();
     }
     
-    public void depositCommit(Account account, long amount) throws SQLException, ClassNotFoundException, IOException {
-        bank.getCustomerHandler().getAccountHandler().commitDeposit(bank.getAccount(), bank.getCash(), account, amount);
-        bank.notifyAllListeners();
-    }
-    
-    public void withdrawCommit(Account account, long amount) throws SQLException, ClassNotFoundException, IOException {
-        bank.getCustomerHandler().getAccountHandler().commitWithdraw(bank.getAccount(), bank.getCash(), account, amount);
-        bank.notifyAllListeners();
-    }
-    
-    public void transferCommit(Account from, Account to, long amount) throws SQLException, ClassNotFoundException, IOException {
-        bank.getCustomerHandler().getAccountHandler().commitTransfer(from, to, amount);
-        bank.notifyAllListeners();
+    public void commit() throws SQLException, ClassNotFoundException, IOException {
+        bank.getCustomerHandler().getAccountHandler().commit();
     }
     
     public void rollback() throws SQLException {

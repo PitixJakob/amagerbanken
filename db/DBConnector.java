@@ -89,6 +89,11 @@ public class DBConnector {
         return stmt;
     }
 
+    public Connection getCon() {
+        return con;
+    }
+
+    
     public String getStatus() throws SQLException {
         if (isConnected() == true) {
             return "Forbundet";
