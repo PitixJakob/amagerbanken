@@ -17,7 +17,6 @@ public class BankViewController {
     
     public BankViewController(Bank bank){
         this.bank = bank;
-        bank.addListener(null);
     }
     
     public Customer addCustomer(String name, String cpr, int phone, String email, String password) throws SQLException{
@@ -25,13 +24,12 @@ public class BankViewController {
         Customer c = new Customer(cpr, name, phone, email, password);
         bank.setCustomer(c);
         return c;
-        bank.notifyAllListeners(null);
     }
     
     public void updateCustomer(String name, int phone, String email) throws SQLException{
         bank.getCustomerHandler().updateCustomer(bank.getCustomer().getCpr(), name, phone, email);
         bank.updateCustomer(name, phone, email);
-        bank.notifyAllListeners(name);
+        bank.notifyAllListeners();
     }
     
     public ArrayList<Customer> getCustomers(String searchTerm) throws SQLException, ClassNotFoundException, IOException{
@@ -48,36 +46,37 @@ public class BankViewController {
     
     public void editInterest(Account account, double interest) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().updateInterest(account, interest);
-        bank.notifyAllListeners(null);
+        bank.notifyAllListeners();
     }
     
     public void editOverdraw(Account account, long overdraw) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().updateOverdraw(account, overdraw);
-        bank.notifyAllListeners(null);
+        bank.notifyAllListeners();
     }
     
     public void setCustomer(Customer c) {
         bank.setCustomer(c);
+        bank.notifyAllListeners();
     }
     
     public void deposit(Account account, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().deposit(bank.getAccount(), bank.getCash(), account, amount);
-        bank.notifyAllListeners(null);
+        bank.notifyAllListeners();
     }
     
     public void withdraw(Account account, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().withdraw(bank.getAccount(), bank.getCash(), account, amount);
-        bank.notifyAllListeners(null);
+        bank.notifyAllListeners();
     }
     
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
-        bank.notifyAllListeners(null);
+        bank.notifyAllListeners();
     }
     
     public void addAccount(int accType, double interest, long overdraw, Customer customer) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().addAccount(accType, interest, overdraw, customer);
-        bank.notifyAllListeners(null);
+        bank.notifyAllListeners();
     }
     
     public Customer getCustomer() {
@@ -86,17 +85,21 @@ public class BankViewController {
     
     public void depositCommit(Account account, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().commitDeposit(bank.getAccount(), bank.getCash(), account, amount);
+        bank.notifyAllListeners();
     }
     
     public void withdrawCommit(Account account, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().commitWithdraw(bank.getAccount(), bank.getCash(), account, amount);
+        bank.notifyAllListeners();
     }
     
     public void transferCommit(Account from, Account to, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().commitTransfer(from, to, amount);
+        bank.notifyAllListeners();
     }
     
     public void rollback() throws SQLException {
         bank.getCustomerHandler().getAccountHandler().rollback();
+        bank.notifyAllListeners();
     }
 }
