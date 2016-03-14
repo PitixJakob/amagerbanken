@@ -50,14 +50,6 @@ public class CustomerViewControl {
         bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
     }
     
-    public void deposit(Account account, long amount) throws SQLException {
-        bank.getCustomerHandler().getAccountHandler().deposit(bank.getAccount(), bank.getCash(), account, amount);
-    }
-    
-    public void withdraw(Account account, long amount) throws SQLException {
-        bank.getCustomerHandler().getAccountHandler().withdraw(bank.getAccount(), bank.getCash(), account, amount);
-    }
-    
     public void commit() throws SQLException, ClassNotFoundException, IOException {
         bank.getCustomerHandler().getAccountHandler().commit();
         bank.notifyAllListeners();
