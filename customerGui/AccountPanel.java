@@ -5,17 +5,53 @@
  */
 package customerGui;
 
+import customerControl.CustomerViewControl;
+import model.Account;
+import model.Customer;
+
 /**
  *
  * @author Gudni
  */
 public class AccountPanel extends javax.swing.JPanel {
+    
+    private Customer customer;
+    private Account toAccount;
+    private Account account;
+    private CustomerViewControl cvc;
+    private int commitNumber;
 
     /**
      * Creates new form AccountPanel
      */
-    public AccountPanel() {
+    public AccountPanel(Account account, Customer customer, CustomerViewControl cvc) {
         initComponents();
+        this.account = account;
+        this.customer = customer;
+        this.cvc = cvc;
+        setData();
+    }
+    
+    public void setData(){
+        
+        String regnr = "" + account.getRegNr();
+        jTextField1.setText(regnr);
+        String kontoNumber = "" + account.getAccountNumber();
+        jTextField2.setText(kontoNumber);
+        int kontoType = account.getAccountType();
+        String kt = Integer.toString(kontoType);
+        jTextField3.setText(kt);
+        String saldo = account.getBalanceFormat();
+        jTextField4.setText(saldo);
+        double interest = account.getInterest();
+        String interest2 = String.valueOf(interest);
+        jTextField5.setText(interest2);
+        long overDraw = account.getOverdraw();
+        String overDraw2 = String.valueOf(overDraw);
+        jTextField6.setText(overDraw2);
+        String name = customer.getName();
+        jLabel1.setText(name);
+        
     }
 
     /**
