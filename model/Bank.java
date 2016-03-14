@@ -1,6 +1,8 @@
 package model;
 
 import handler.CustomerHandler;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,9 +18,11 @@ public class Bank {
     private Current account;
     private Current cash;
     private CustomerHandler ch;
+    private ArrayList<ActionListener>listeners;
     
     public Bank() throws ClassNotFoundException, SQLException, IOException {
         ch = new CustomerHandler();
+        listeners = new ArrayList<>();
         setInfo();
     }
      
@@ -70,6 +74,18 @@ public class Bank {
         customer.setName(name);
         customer.setPhone(phone);
         customer.setEmail(email);
+    }
+    
+    public void addListener(ActionListener listener){
+        if(!listeners.contains(listener)){
+            listeners.add(listener);
+        } 
+    }
+    
+    public void notifyAllListeners(String eventText){
+        for (ActionListener listener : listeners) {
+            listener.actionPerformed(new ActionEvent(this, 1, eventText));
+        }
     }
     
 }
