@@ -34,16 +34,36 @@ public class CustomerViewControl {
         return true;
     }
     
+    public void updateLocalCustomer() throws SQLException{
+    }
+    
     public ArrayList<Account> getAccounts(){
         return customer.getAccounts();
     }
     
-    public Customer getCustomer(){
+    public Customer getCustomer() throws SQLException{
+        customer = bank.getCustomerHandler().getCustomer(customer.getCpr());
         return customer;
     }
     
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException, ClassNotFoundException, IOException{
         bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
+    }
+    
+    public void deposit(Account account, long amount) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().deposit(bank.getAccount(), bank.getCash(), account, amount);
+    }
+    
+    public void withdraw(Account account, long amount) throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().withdraw(bank.getAccount(), bank.getCash(), account, amount);
+    }
+    
+    public void commit() throws SQLException, ClassNotFoundException, IOException {
+        bank.getCustomerHandler().getAccountHandler().commit();
         bank.notifyAllListeners();
+    }
+    
+    public void rollback() throws SQLException {
+        bank.getCustomerHandler().getAccountHandler().rollback();
     }
 }

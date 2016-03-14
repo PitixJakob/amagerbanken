@@ -35,12 +35,18 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
     }
     
     public void updateView(){
-        jPanel2.removeAll();
-        for (Account account : cvc.getAccounts()) {
-            jPanel2.add(new customerGui.AccountPanel(account, cvc.getCustomer(), cvc));
+        try {
+            jLabel1.setText(cvc.getCustomer().getName());
+            jPanel2.removeAll();
+            for (Account account : cvc.getAccounts()) {
+                AccountPanel1 a = new AccountPanel1(account, cvc.getCustomer(), cvc);
+                jPanel2.add(a);
+            }
+            jPanel2.revalidate();
+            jPanel2.repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jPanel2.revalidate();
-        jPanel2.repaint();
     }
 
     public static void updateDialog(JDialog dialog) {
@@ -163,7 +169,7 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1140, 130));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(jPanel2);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -176,7 +182,7 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1155, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
