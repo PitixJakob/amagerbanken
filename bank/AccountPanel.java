@@ -5,6 +5,7 @@
  */
 package bank;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -727,28 +728,13 @@ public class AccountPanel extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            long amount;
-            switch (commitNumber) {
-                case 1:
-                    amount = getNumber(jTextField3);
-                    System.out.println(amount);
-                    bvc.depositCommit(account, amount);
-                    break;
-                case 2:
-                    amount = getNumber(jTextField3);
-                    bvc.withdrawCommit(account, amount);
-                    break;
-                case 3:
-                    amount = getNumber(jTextField5);
-                    bvc.transferCommit(account, toAccount, amount);
-                    break;
-                case 4:
-                    amount = getNumber(jTextField4);
-                    bvc.transferCommit(account, toAccount, amount);
-                    break;
-            }
+            bvc.commit();
             BankGui.updateDialog(confirmDialog);
         } catch (SQLException ex) {
+            Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -760,6 +746,10 @@ public class AccountPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Rente ændret");
             BankGui.updateDialog(interestDialog);
         } catch (SQLException ex) {
+            Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_editInterestButtonActionPerformed
@@ -827,6 +817,10 @@ public class AccountPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Overtræk Ændret");
             BankGui.updateDialog(overdrawDialog);
         } catch (SQLException ex) {
+            Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_editOverdrawButtonActionPerformed
