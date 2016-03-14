@@ -23,6 +23,7 @@ public class CustomerViewControl {
     public CustomerViewControl(Bank bank) {
         this.bank = bank;
         customer = null;
+        bank.addListener(null);
     }
     
     public boolean login(String cpr, char[] password) throws SQLException{
@@ -39,5 +40,6 @@ public class CustomerViewControl {
     
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException{
         bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
+        bank.notifyAllListeners(null);
     }
 }
