@@ -54,6 +54,8 @@ public class AccountPanel1 extends javax.swing.JPanel {
         String balance = account.getBalanceFormat();
         accNumberField.setText(regAndNumber);
         balanceField.setText(balance);
+        interestField.setText(account.getInterest()+"%");
+        overdrawField.setText(account.getOverdrawFormat());
         interestLabel.setText("Nuværende Rente: " + account.getInterest());
         overdrawLabel.setText("Nuværende overtræk: " + account.getOverdrawFormat());
         transferLabel1.setText("Du overfører fra " + regAndNumber);
@@ -144,10 +146,12 @@ public class AccountPanel1 extends javax.swing.JPanel {
         accNumberField = new javax.swing.JLabel();
         balanceField = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        interestButton = new javax.swing.JButton();
-        overdrawButton = new javax.swing.JButton();
         inOutButton = new javax.swing.JButton();
         transferButton = new javax.swing.JButton();
+        interestField = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        overdrawField = new javax.swing.JLabel();
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -640,22 +644,6 @@ public class AccountPanel1 extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Saldo");
 
-        interestButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        interestButton.setText("Rente");
-        interestButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                interestButtonActionPerformed(evt);
-            }
-        });
-
-        overdrawButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        overdrawButton.setText("Overtræk");
-        overdrawButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                overdrawButtonActionPerformed(evt);
-            }
-        });
-
         inOutButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         inOutButton.setText("Ind/Udbetaling");
         inOutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -672,6 +660,18 @@ public class AccountPanel1 extends javax.swing.JPanel {
             }
         });
 
+        interestField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        interestField.setText("Rente");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel9.setText("Rente");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel13.setText("Overtræk");
+
+        overdrawField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        overdrawField.setText("Overtræk");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -685,11 +685,15 @@ public class AccountPanel1 extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                    .addComponent(interestField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(overdrawField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(interestButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(overdrawButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inOutButton)
                 .addGap(18, 18, 18)
                 .addComponent(transferButton)
@@ -701,25 +705,28 @@ public class AccountPanel1 extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(29, 29, 29)
-                        .addComponent(balanceField))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(29, 29, 29)
                         .addComponent(accNumberField))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(overdrawButton, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                         .addComponent(inOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                         .addComponent(transferButton, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
-                    .addComponent(interestButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel13))
+                            .addGap(29, 29, 29)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(interestField)
+                                .addComponent(overdrawField)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(29, 29, 29)
+                            .addComponent(balanceField))))
                 .addGap(191, 191, 191))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void interestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interestButtonActionPerformed
-        updateDialog(interestDialog);
-    }//GEN-LAST:event_interestButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (!jTextField5.getText().isEmpty()) {
@@ -843,10 +850,6 @@ public class AccountPanel1 extends javax.swing.JPanel {
 //        }
     }//GEN-LAST:event_editOverdrawButtonActionPerformed
 
-    private void overdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overdrawButtonActionPerformed
-        updateDialog(overdrawDialog);
-    }//GEN-LAST:event_overdrawButtonActionPerformed
-
     private void inOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOutButtonActionPerformed
         updateDialog(inOutDialog);
     }//GEN-LAST:event_inOutButtonActionPerformed
@@ -898,8 +901,8 @@ public class AccountPanel1 extends javax.swing.JPanel {
     private javax.swing.JButton inOutButton;
     private javax.swing.JButton inOutCommitButton;
     private javax.swing.JDialog inOutDialog;
-    private javax.swing.JButton interestButton;
     private javax.swing.JDialog interestDialog;
+    private javax.swing.JLabel interestField;
     private javax.swing.JLabel interestLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -910,6 +913,7 @@ public class AccountPanel1 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -917,6 +921,7 @@ public class AccountPanel1 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -931,8 +936,8 @@ public class AccountPanel1 extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JButton overdrawButton;
     private javax.swing.JDialog overdrawDialog;
+    private javax.swing.JLabel overdrawField;
     private javax.swing.JLabel overdrawLabel;
     private javax.swing.JDialog savingsTransferDialog;
     private javax.swing.JButton transferButton;
