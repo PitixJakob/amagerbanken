@@ -174,7 +174,10 @@ public class AccountHandler {
     }
 
     public void commit() throws SQLException {
-        db.getCon().commit();
+        String stmt = "COMMIT;";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        pst.execute();
+        pst.close();
     }
 
     public void rollback() throws SQLException {

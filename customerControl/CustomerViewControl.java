@@ -5,6 +5,7 @@
  */
 package customerControl;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Account;
@@ -37,7 +38,7 @@ public class CustomerViewControl {
         return customer.getAccounts();
     }
     
-    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException{
+    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException, ClassNotFoundException, IOException{
         bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
         bank.notifyAllListeners();
     }
