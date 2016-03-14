@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import model.Account;
 import model.Current;
 import model.Customer;
@@ -53,6 +54,19 @@ public class AccountPanel extends javax.swing.JPanel {
         overdrawLabel.setText("Nuværende overtræk: " + account.getOverdraw());
         transferLabel1.setText("Du overfører fra " + regAndNumber);
         transferLabel4.setText("Du overfører fra " + regAndNumber);
+    }
+
+    public long getNumber(JTextField field) {
+        long amount;
+        String stringAmount = field.getText();
+        if (field.getText().contains(".")) {
+            stringAmount = field.getText().replace(".", "");
+            amount = (long) (Double.parseDouble(stringAmount));
+        } else {
+            amount = (long) (Double.parseDouble(stringAmount) * 100);
+        }
+
+        return amount;
     }
 
     /**
@@ -695,12 +709,7 @@ public class AccountPanel extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (!jTextField5.getText().isEmpty()) {
             try {
-                long amount;
-                if (jTextField5.getText().contains(".")) {
-                    amount = (long) (Double.parseDouble(jTextField5.getText()));
-                } else {
-                    amount = (long) (Double.parseDouble(jTextField5.getText()) * 100);
-                }
+                long amount = getNumber(jTextField5);
 
                 int acc = Integer.parseInt(jTextField7.getText());
                 int reg = Integer.parseInt(jTextField6.getText());
@@ -718,42 +727,24 @@ public class AccountPanel extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            long inOutAmount;
-            long savingsAmount;
-            long currentAmount;
+            long amount;
             switch (commitNumber) {
                 case 1:
-                    if (jTextField3.getText().contains(".")) {
-                        inOutAmount = (long) (Double.parseDouble(jTextField3.getText()));
-                    } else {
-                        inOutAmount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
-                    }
-                    System.out.println(inOutAmount);
-                    bvc.depositCommit(account, inOutAmount);
+                    amount = getNumber(jTextField3);
+                    System.out.println(amount);
+                    bvc.depositCommit(account, amount);
                     break;
                 case 2:
-                    if (jTextField3.getText().contains(".")) {
-                        inOutAmount = (long) (Double.parseDouble(jTextField3.getText()));
-                    } else {
-                        inOutAmount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
-                    }
-                    bvc.withdrawCommit(account, inOutAmount);
+                    amount = getNumber(jTextField3);
+                    bvc.withdrawCommit(account, amount);
                     break;
                 case 3:
-                    if (jTextField4.getText().contains(".")) {
-                        savingsAmount = (long) (Double.parseDouble(jTextField4.getText()));
-                    } else {
-                        savingsAmount = (long) (Double.parseDouble(jTextField4.getText()) * 100);
-                    }
-                    bvc.transferCommit(account, toAccount, savingsAmount);
+                    amount = getNumber(jTextField5);
+                    bvc.transferCommit(account, toAccount, amount);
                     break;
                 case 4:
-                    if (jTextField3.getText().contains(".")) {
-                        currentAmount = (long) (Double.parseDouble(jTextField5.getText()));
-                    } else {
-                        currentAmount = (long) (Double.parseDouble(jTextField5.getText()) * 100);
-                    }
-                    bvc.transferCommit(account, toAccount, currentAmount);
+                    amount = getNumber(jTextField4);
+                    bvc.transferCommit(account, toAccount, amount);
                     break;
             }
             BankGui.updateDialog(confirmDialog);
@@ -786,14 +777,8 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void inOutCommitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOutCommitButtonActionPerformed
-        long amount;
-//        if (jTextField3.getText().contains(".")) {
-        amount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
-//        } else {
-//            amount = Long.parseLong(jTextField3.getText()) * 100;
-//        }
+        long amount = (long) (Double.parseDouble(jTextField3.getText()) * 100);
 
-    
         try {
             System.out.println(amount);
             if (jRadioButton1.isSelected()) {
@@ -835,12 +820,7 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_transferButtonActionPerformed
 
     private void editOverdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editOverdrawButtonActionPerformed
-        long overdraw;
-        if (jTextField2.getText().contains(".")) {
-            overdraw = (long) (Double.parseDouble(jTextField2.getText()) * 100);
-        } else {
-            overdraw = Long.parseLong(jTextField2.getText());
-        }
+        long overdraw = (long) (Double.parseDouble(jTextField2.getText()) * 100);
 
         try {
             bvc.editOverdraw(account, overdraw);
@@ -862,17 +842,15 @@ public class AccountPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (!jTextField4.getText().isEmpty()) {
             try {
-                long amount;
-                if (jTextField4.getText().contains(".")) {
-                    amount = (long) (Double.parseDouble(jTextField4.getText()) * 100);
-                } else {
-                    amount = (long) (Long.parseLong(jTextField4.getText()));
-                }
+                long amount = (long) (Double.parseDouble(jTextField4.getText()) * 100);
+
                 toAccount = (Account) jComboBox1.getSelectedItem();
                 bvc.transfer(account, toAccount, amount);
-                commitNumber = 3;
+                commitNumber = 4;
+
                 BankGui.updateDialog(confirmDialog);
                 BankGui.updateDialog(savingsTransferDialog);
+
             } catch (SQLException ex) {
                 Logger.getLogger(AccountPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
