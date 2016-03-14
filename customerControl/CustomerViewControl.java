@@ -39,5 +39,6 @@ public class CustomerViewControl {
     
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException{
         bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
+        bank.notifyAllListeners();
     }
 }
