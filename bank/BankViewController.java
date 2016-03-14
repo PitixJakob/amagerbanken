@@ -29,7 +29,6 @@ public class BankViewController {
     public void updateCustomer(String name, int phone, String email) throws SQLException{
         bank.getCustomerHandler().updateCustomer(bank.getCustomer().getCpr(), name, phone, email);
         bank.updateCustomer(name, phone, email);
-        bank.notifyAllListeners();
     }
     
     public ArrayList<Customer> getCustomers(String searchTerm) throws SQLException, ClassNotFoundException, IOException{
@@ -44,37 +43,33 @@ public class BankViewController {
         return bank.getCash();
     }
     
-    public void editInterest(Account account, double interest) throws SQLException {
+    public void editInterest(Account account, double interest) throws SQLException, ClassNotFoundException, IOException {
         bank.getCustomerHandler().getAccountHandler().updateInterest(account, interest);
         bank.notifyAllListeners();
     }
     
-    public void editOverdraw(Account account, long overdraw) throws SQLException {
+    public void editOverdraw(Account account, long overdraw) throws SQLException, ClassNotFoundException, IOException {
         bank.getCustomerHandler().getAccountHandler().updateOverdraw(account, overdraw);
         bank.notifyAllListeners();
     }
     
     public void setCustomer(Customer c) {
         bank.setCustomer(c);
-        bank.notifyAllListeners();
     }
     
     public void deposit(Account account, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().deposit(bank.getAccount(), bank.getCash(), account, amount);
-        bank.notifyAllListeners();
     }
     
     public void withdraw(Account account, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().withdraw(bank.getAccount(), bank.getCash(), account, amount);
-        bank.notifyAllListeners();
     }
     
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
         bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
-        bank.notifyAllListeners();
     }
     
-    public void addAccount(int accType, double interest, long overdraw, Customer customer) throws SQLException {
+    public void addAccount(int accType, double interest, long overdraw, Customer customer) throws SQLException, ClassNotFoundException, IOException {
         bank.getCustomerHandler().getAccountHandler().addAccount(accType, interest, overdraw, customer);
         bank.notifyAllListeners();
     }
@@ -83,23 +78,22 @@ public class BankViewController {
         return bank.getCustomer();
     }
     
-    public void depositCommit(Account account, long amount) throws SQLException {
+    public void depositCommit(Account account, long amount) throws SQLException, ClassNotFoundException, IOException {
         bank.getCustomerHandler().getAccountHandler().commitDeposit(bank.getAccount(), bank.getCash(), account, amount);
         bank.notifyAllListeners();
     }
     
-    public void withdrawCommit(Account account, long amount) throws SQLException {
+    public void withdrawCommit(Account account, long amount) throws SQLException, ClassNotFoundException, IOException {
         bank.getCustomerHandler().getAccountHandler().commitWithdraw(bank.getAccount(), bank.getCash(), account, amount);
         bank.notifyAllListeners();
     }
     
-    public void transferCommit(Account from, Account to, long amount) throws SQLException {
+    public void transferCommit(Account from, Account to, long amount) throws SQLException, ClassNotFoundException, IOException {
         bank.getCustomerHandler().getAccountHandler().commitTransfer(from, to, amount);
         bank.notifyAllListeners();
     }
     
     public void rollback() throws SQLException {
         bank.getCustomerHandler().getAccountHandler().rollback();
-        bank.notifyAllListeners();
     }
 }

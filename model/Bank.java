@@ -39,6 +39,12 @@ public class Bank {
         }
     }
     
+    public void updateModel() throws SQLException, ClassNotFoundException, IOException{
+        customer = ch.getCustomer(customer.getCpr());
+        account = (Current) ch.getAccountHandler().getAccounts("0000000000").get(0);
+        cash = (Current) ch.getAccountHandler().getAccounts("0000000000").get(1);
+        
+    }
     
     public void setCustomer(Customer customer) {
         this.customer = customer;
@@ -82,7 +88,8 @@ public class Bank {
         } 
     }
     
-    public void notifyAllListeners(){
+    public void notifyAllListeners() throws SQLException, ClassNotFoundException, IOException{
+        updateModel();
         for (ActionListener listener : listeners) {
             listener.actionPerformed(new ActionEvent(this, 1, null));
         }

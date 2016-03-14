@@ -46,6 +46,25 @@ public class CustomerHandler {
         pst.close();
         return customers;
     }
+    
+    public Customer getCustomer(String cpr) throws SQLException{
+        Customer customer = null;
+        String stmt = "SELECT * FROM customer WHERE cpr = ?";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        pst.setString(1, cpr);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            String name = rs.getString("customer_name");
+            int phone = rs.getInt("phone");
+            String email = rs.getString("email");
+            String password = rs.getString("customer_password");
+            ArrayList<Account> accounts = ah.getAccounts(cpr);
+            customer = new Customer(cpr, name, phone, email, password, accounts);
+        }
+        rs.close();
+        pst.close();
+        return customer;
+    }
 
     public boolean validateLogin(String cpr, char[] password) throws SQLException {
         String stmt = "SELECT customer.cpr, customer.customer_password FROM customer WHERE cpr=? AND customer_password=?";
