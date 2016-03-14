@@ -6,6 +6,8 @@
 package bank;
 
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,7 +23,7 @@ import model.Customer;
  *
  * @author Morten Ricki Rasmussen
  */
-public class BankGui extends javax.swing.JFrame {
+public class BankGui extends javax.swing.JFrame implements ActionListener {
 
     private CardLayout layout;
     private BankViewController bvc;
@@ -45,6 +47,19 @@ public class BankGui extends javax.swing.JFrame {
         } else {
             dialog.setVisible(true);
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        showAccountsPanel.removeAll();
+       
+        for (Account a : bvc.getCustomer().getAccounts()) {
+            AccountPanel panel = new AccountPanel(a, bvc.getCustomer(), bvc);
+            showAccountsPanel.add(panel);
+        }
+        
+        showAccountsPanel.revalidate();
+        showAccountsPanel.repaint();
     }
 
     /**
@@ -749,7 +764,7 @@ public class BankGui extends javax.swing.JFrame {
                 interest = Double.parseDouble(jTextField4.getText());
                 overdraw = (long) (Double.parseDouble(jTextField5.getText()) * 100);
                 c = bvc.getCustomer();
-                
+
                 bvc.addAccount(accType, interest, overdraw, c);
                 showAccountsPanel.removeAll();
                 for (Account a : c.getAccounts()) {
