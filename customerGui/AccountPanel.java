@@ -50,7 +50,7 @@ public class AccountPanel extends javax.swing.JPanel {
         String overDraw2 = String.valueOf(overDraw);
         jTextField6.setText(overDraw2);
         String name = customer.getName();
-        jLabel1.setText(name);
+        
         
     }
 
