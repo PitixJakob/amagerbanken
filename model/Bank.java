@@ -82,9 +82,9 @@ public class Bank {
         } 
     }
     
-    public void notifyAllListeners(String eventText){
+    public void notifyAllListeners(){
         for (ActionListener listener : listeners) {
-            listener.actionPerformed(new ActionEvent(this, 1, eventText));
+            listener.actionPerformed(new ActionEvent(this, 1, null));
         }
     }
     
