@@ -3,6 +3,6 @@ jjcomput_bank
 //PASSWORD
 amagerbanken
 //URL
-jjcomputer.dk:3306
+83.221.132.78:3300
 //SCHEMA
 jjcomput_bank
