@@ -85,23 +85,7 @@ public class CustomerHandler {
 
     public Customer customerLogin(String cpr, char[] password) throws SQLException {
         if (validateLogin(cpr, password)) {
-            Customer customer = null;
-            String stmt = "SELECT * FROM customer WHERE cpr=?";
-            PreparedStatement pst = db.getPrepStmt(stmt);
-            pst.setString(1, cpr);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                String cprNum = rs.getString("cpr");
-                String name = rs.getString("customer_name");
-                int phone = rs.getInt("phone");
-                String email = rs.getString("email");
-                String Userpassword = rs.getString("customer_password");
-                ArrayList<Account> accounts = ah.getAccounts(cpr);
-                customer = new Customer(cprNum, name, phone, email, Userpassword, accounts);
-            }
-            rs.close();
-            pst.close();
-            return customer;
+            return getCustomer(cpr);
         }
         return null;
     }

@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import model.Account;
 
 /**
  *
@@ -31,7 +32,15 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
         initComponents();
         updateDialog(loginDialog);
         setLocationRelativeTo(null);
-
+    }
+    
+    public void updateView(){
+        jPanel2.removeAll();
+        for (Account account : cvc.getAccounts()) {
+            jPanel2.add(new customerGui.AccountPanel(account, cvc.getCustomer(), cvc));
+        }
+        jPanel2.revalidate();
+        jPanel2.repaint();
     }
 
     public static void updateDialog(JDialog dialog) {
@@ -46,7 +55,7 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        updateView();
     }
 
     /**
@@ -154,18 +163,7 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1140, 130));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
         jScrollPane1.setViewportView(jPanel2);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -223,6 +221,7 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
             if (cvc.login(username, password)) {
                 setVisible(true);
                 updateDialog(loginDialog);
+                updateView();
             } else {
                 JOptionPane.showMessageDialog(this, "Brugernavn eller kode er forkert");
             }
