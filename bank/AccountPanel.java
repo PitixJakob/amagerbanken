@@ -755,7 +755,7 @@ public class AccountPanel extends javax.swing.JPanel {
             try {
                 long amount = getNumber(jTextField5);
 
-                int acc = Integer.parseInt(jTextField7.getText());
+                long acc = Long.parseLong(jTextField7.getText());
                 int reg = Integer.parseInt(jTextField6.getText());
 
                 toAccount = new Current(acc, reg);
