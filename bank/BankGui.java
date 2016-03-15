@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import model.Account;
 import model.Customer;
 
@@ -739,6 +740,8 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
             updateDialog(loginDialog);
             layout = (CardLayout) jPanel1.getLayout();
             layout.next(jPanel1);
+        } else {
+            JOptionPane.showMessageDialog(null, "Brugernavnet eller koden er forkert!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
