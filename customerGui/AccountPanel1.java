@@ -5,8 +5,8 @@
  */
 package customerGui;
 
-import bank.*;
 import customerControl.CustomerViewControl;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Account;
 import model.Current;
@@ -63,8 +62,12 @@ public class AccountPanel1 extends javax.swing.JPanel {
         long amount;
         String stringAmount = field.getText();
         if (field.getText().contains(".")) {
+            int decimals = field.getText().length() - field.getText().lastIndexOf(".");
             stringAmount = field.getText().replace(".", "");
             amount = (long) (Double.parseDouble(stringAmount));
+            if (decimals > 2) {
+                amount = amount * 10;
+            }
         } else {
             amount = (long) (Double.parseDouble(stringAmount) * 100);
         }
@@ -79,6 +82,12 @@ public class AccountPanel1 extends javax.swing.JPanel {
             dialog.setVisible(false);
         } else {
             dialog.setVisible(true);
+        }
+    }
+    
+    public void enterOnlyNumbers(KeyEvent evt) {
+        if (!Character.isDigit(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_PERIOD)) {
+            evt.consume();
         }
     }
 
@@ -145,6 +154,11 @@ public class AccountPanel1 extends javax.swing.JPanel {
         transferLabel3.setText("Beløb");
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton1.setText("Overfør");
@@ -230,6 +244,11 @@ public class AccountPanel1 extends javax.swing.JPanel {
         transferLabel6.setText("Beløb");
 
         jTextField5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton2.setText("Overfør");
@@ -240,8 +259,18 @@ public class AccountPanel1 extends javax.swing.JPanel {
         });
 
         jTextField6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField6KeyTyped(evt);
+            }
+        });
 
         jTextField7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField7KeyTyped(evt);
+            }
+        });
 
         transferLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         transferLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -533,6 +562,26 @@ public class AccountPanel1 extends javax.swing.JPanel {
             Logger.getLogger(AccountPanel1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        enterOnlyNumbers(evt);
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        enterOnlyNumbers(evt);
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) || jTextField7.getText().length() >= 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField7KeyTyped
+
+    private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) || jTextField7.getText().length() >= 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField6KeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
