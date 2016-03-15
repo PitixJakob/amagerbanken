@@ -21,9 +21,9 @@ public class CustomerViewControl {
     private Bank bank;
     private Customer customer;
 
-    public CustomerViewControl(Bank bank) {
+    public CustomerViewControl(Bank bank) throws SQLException {
         this.bank = bank;
-        customer = null;
+        customer = bank.getCustomerHandler().getCustomer("null");
     }
     
     public boolean login(String cpr, char[] password) throws SQLException{
@@ -34,8 +34,6 @@ public class CustomerViewControl {
         return true;
     }
     
-    public void updateLocalCustomer() throws SQLException{
-    }
     
     public ArrayList<Account> getAccounts(){
         return customer.getAccounts();
