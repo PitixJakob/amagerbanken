@@ -41,7 +41,12 @@ public class Main {
         BankViewController bvc = new BankViewController(bank);
         BankGui bg = new BankGui(bvc);
         bank.addListener((ActionListener) bg);
-        CustomerViewControl cvc = new CustomerViewControl(bank);
+        CustomerViewControl cvc = null;
+        try {
+            cvc = new CustomerViewControl(bank);
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         CustomerGui cg = new CustomerGui(cvc);
         bank.addListener((ActionListener) cg);
         bg.validate();
