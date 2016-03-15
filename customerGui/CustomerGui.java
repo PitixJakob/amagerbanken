@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import model.Account;
 
 /**
@@ -23,6 +24,7 @@ import model.Account;
 public class CustomerGui extends javax.swing.JFrame implements ActionListener {
 
     private CustomerViewControl cvc;
+    private int enterPressedCount;
 
     /**
      * Creates new form CustomerGui
@@ -32,9 +34,10 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
         initComponents();
         updateDialog(loginDialog);
         setLocationRelativeTo(null);
+        enterPressedCount = 2;
     }
-    
-    public void updateView(){
+
+    public void updateView() {
         try {
             jLabel1.setText(cvc.getCustomer().getName());
             jPanel2.removeAll();
@@ -229,7 +232,8 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
                 updateDialog(loginDialog);
                 updateView();
             } else {
-                JOptionPane.showMessageDialog(this, "Brugernavn eller kode er forkert");
+                JOptionPane.showMessageDialog(this, "CPR eller kodeord er forkert");
+                enterPressedCount = 0;
             }
         } catch (SQLException ex) {
             Logger.getLogger(CustomerGui.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,9 +247,10 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_passwordFieldActionPerformed
 
     private void passwordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER && loginDialog.isFocused()) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER && enterPressedCount > 1) {
             jButton1.doClick();
         }
+        enterPressedCount++;
     }//GEN-LAST:event_passwordFieldKeyReleased
 
     /**
