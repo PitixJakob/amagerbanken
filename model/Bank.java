@@ -31,7 +31,7 @@ public class Bank {
      */
     public void setInfo() {
         try {
-            ArrayList accounts = ch.getAccountHandler().getAccounts("0000000000");
+            ArrayList accounts = ch.getAccountHandler().getAccounts("bank");
             account = (Current) accounts.get(0);
             cash = (Current) accounts.get(1);
         } catch (SQLException ex) {
@@ -41,11 +41,11 @@ public class Bank {
     
     public void updateModel() throws SQLException, ClassNotFoundException, IOException{
         if (customer == null){
-            customer = ch.getCustomer("0000000000");
+            customer = ch.getCustomer("bank");
         }
         customer = ch.getCustomer(customer.getCpr());
-        account = (Current) ch.getAccountHandler().getAccounts("0000000000").get(0);
-        cash = (Current) ch.getAccountHandler().getAccounts("0000000000").get(1);
+        account = (Current) ch.getAccountHandler().getAccounts("bank").get(0);
+        cash = (Current) ch.getAccountHandler().getAccounts("bank").get(1);
         
     }
     
