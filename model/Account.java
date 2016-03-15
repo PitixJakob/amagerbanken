@@ -103,7 +103,7 @@ public abstract class Account {
     }
     
     public String toString() {
-        return regNr + " - " + accountNumber + ": " + balance;
+        return regNr + " - " + accountNumber + ": " + getBalanceFormat();
     }
 }
     

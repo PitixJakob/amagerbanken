@@ -52,12 +52,12 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         showAccountsPanel.removeAll();
-       
+
         for (Account a : bvc.getCustomer().getAccounts()) {
             AccountPanel panel = new AccountPanel(a, bvc.getCustomer(), bvc);
             showAccountsPanel.add(panel);
         }
-        
+
         showAccountsPanel.revalidate();
         showAccountsPanel.repaint();
     }
@@ -316,6 +316,11 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
 
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel15.setText("E-Mail");
@@ -468,9 +473,22 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
 
         cprField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         cprField.setNextFocusableComponent(phoneField);
+        cprField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cprFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cprFieldKeyTyped(evt);
+            }
+        });
 
         phoneField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         phoneField.setNextFocusableComponent(emailField);
+        phoneField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phoneFieldKeyTyped(evt);
+            }
+        });
 
         emailField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         emailField.setNextFocusableComponent(newPasswordField);
@@ -498,6 +516,11 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
         jLabel11.setText("Navn:");
 
         findCustomerList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        findCustomerList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                findCustomerListValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(findCustomerList);
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -712,6 +735,7 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
             showAccountsPanel.repaint();
             layout = (CardLayout) jPanel1.getLayout();
             layout.next(jPanel1);
+            findCustomerList.setModel(new DefaultListModel<>());
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -721,7 +745,6 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_emailFieldActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
         try {
             customer = bvc.getCustomers(nameField1.getText());
         } catch (SQLException ex) {
@@ -783,40 +806,66 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void findCustomerListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_findCustomerListValueChanged
+
+    }//GEN-LAST:event_findCustomerListValueChanged
+
+    private void cprFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cprFieldKeyReleased
+
+    }//GEN-LAST:event_cprFieldKeyReleased
+
+    private void cprFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cprFieldKeyTyped
+        if (cprField.getText().length() >= 10 || !Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cprFieldKeyTyped
+
+    private void phoneFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneFieldKeyTyped
+        if (phoneField.getText().length() >= 8 || !Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_phoneFieldKeyTyped
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        if (jTextField2.getText().length() >= 8 || !Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField2KeyTyped
+
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(BankGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(BankGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(BankGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(BankGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new BankGui().setVisible(false);
-//            }
-//        });
-//    }
+    //    public static void main(String args[]) {
+    //        /* Set the Nimbus look and feel */
+    //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    //         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+    //         */
+    //        try {
+    //            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+    //                if ("Nimbus".equals(info.getName())) {
+    //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+    //                    break;
+    //                }
+    //            }
+    //        } catch (ClassNotFoundException ex) {
+    //            java.util.logging.Logger.getLogger(BankGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (InstantiationException ex) {
+    //            java.util.logging.Logger.getLogger(BankGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (IllegalAccessException ex) {
+    //            java.util.logging.Logger.getLogger(BankGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+    //            java.util.logging.Logger.getLogger(BankGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        }
+    //        //</editor-fold>
+    //
+    //        /* Create and display the form */
+    //        java.awt.EventQueue.invokeLater(new Runnable() {
+    //            public void run() {
+    //                new BankGui().setVisible(false);
+    //            }
+    //        });
+    //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel accountPanel;
