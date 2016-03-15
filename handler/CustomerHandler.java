@@ -22,7 +22,7 @@ public class CustomerHandler {
         db = DBConnector.getDB();
         ah = new AccountHandler();
     }
-    
+
     public AccountHandler getAccountHandler() {
         return ah;
     }
@@ -40,14 +40,16 @@ public class CustomerHandler {
             String email = rs.getString("email");
             String password = rs.getString("customer_password");
             ArrayList<Account> accounts = ah.getAccounts(cpr);
-            customers.add(new Customer(cpr, name, phone, email, password, accounts));
+            if (!cpr.equals("bank") && !cpr.equals("null")) {
+                customers.add(new Customer(cpr, name, phone, email, password, accounts));
+            }
         }
         rs.close();
         pst.close();
         return customers;
     }
-    
-    public Customer getCustomer(String cpr) throws SQLException{
+
+    public Customer getCustomer(String cpr) throws SQLException {
         Customer customer = null;
         String stmt = "SELECT * FROM customer WHERE cpr = ?";
         PreparedStatement pst = db.getPrepStmt(stmt);
@@ -84,14 +86,17 @@ public class CustomerHandler {
     }
 
     public Customer customerLogin(String cpr, char[] password) throws SQLException {
+        if (new String(password).isEmpty()){
+            return null;
+        }
         if (validateLogin(cpr, password)) {
             return getCustomer(cpr);
         }
         return null;
     }
-    
-    public void addCustomer(String name, String cpr, int phone, String email, String password) throws SQLException{
-        
+
+    public void addCustomer(String name, String cpr, int phone, String email, String password) throws SQLException {
+
         String stmt = "INSERT INTO customer (customer_name, cpr, phone, email, customer_password) VALUES (?,?,?,?,?)";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.setString(1, name);
@@ -102,23 +107,23 @@ public class CustomerHandler {
         pst.executeUpdate();
         pst.close();
     }
-    
-    public void updateCustomer(String cpr, String name, int phone, String email) throws SQLException{
-        
+
+    public void updateCustomer(String cpr, String name, int phone, String email) throws SQLException {
+
         String stmt = "UPDATE customer SET customer_name = ? WHERE cpr = ? ";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.setString(1, name);
         pst.setString(2, cpr);
         pst.executeUpdate();
         pst.close();
-        
+
         stmt = "UPDATE customer SET phone = ? WHERE cpr = ? ";
         pst = db.getPrepStmt(stmt);
         pst.setInt(1, phone);
         pst.setString(2, cpr);
         pst.executeUpdate();
         pst.close();
-        
+
         stmt = "UPDATE customer SET email = ? WHERE cpr = ? ";
         pst = db.getPrepStmt(stmt);
         pst.setString(1, email);
