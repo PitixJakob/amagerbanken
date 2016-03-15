@@ -134,6 +134,7 @@ public class AccountHandler {
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
         if (amount >= 0) {
             long overdrawFee = 0;
+            long transferFee = 0;
             begin();
             if (fromAccount.getBalance() - amount < -fromAccount.getOverdraw()) {
                 overdrawFee = 50000;
@@ -144,9 +145,12 @@ public class AccountHandler {
                 pst.executeUpdate();
                 pst.close();
             }
+            if (toAccount.getRegNr() != 4700){
+                transferFee = 2500;
+            }
             String stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
             PreparedStatement pst = db.getPrepStmt(stmt);
-            pst.setLong(1, (amount + overdrawFee));
+            pst.setLong(1, (amount + overdrawFee + transferFee));
             pst.setLong(2, fromAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
