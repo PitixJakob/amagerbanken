@@ -31,7 +31,6 @@ public class AccountPanel1 extends javax.swing.JPanel {
     private Account account;
     private DefaultComboBoxModel model;
     private CustomerViewControl cvc;
-    private int commitNumber;
 
     /**
      * Creates new form accountPanel
@@ -460,7 +459,6 @@ public class AccountPanel1 extends javax.swing.JPanel {
                 int reg = Integer.parseInt(jTextField6.getText());
 
                 toAccount = new Current(acc, reg);
-                commitNumber = 3;
                 cvc.transfer(account, toAccount, amount);
                 updateDialog(confirmDialog);
                 updateDialog(currentTransferDialog);
@@ -513,7 +511,6 @@ public class AccountPanel1 extends javax.swing.JPanel {
 
                 toAccount = (Account) jComboBox1.getSelectedItem();
                 cvc.transfer(account, toAccount, amount);
-                commitNumber = 4;
 
                 updateDialog(confirmDialog);
                 updateDialog(savingsTransferDialog);
