@@ -29,7 +29,6 @@ public class AccountPanel extends javax.swing.JPanel {
     private Account account;
     private DefaultComboBoxModel model;
     private BankViewController bvc;
-    private int commitNumber;
 
     /**
      * Creates new form accountPanel
@@ -62,8 +61,12 @@ public class AccountPanel extends javax.swing.JPanel {
         long amount;
         String stringAmount = field.getText();
         if (field.getText().contains(".")) {
+            int decimals = field.getText().length() - field.getText().lastIndexOf(".");
             stringAmount = field.getText().replace(".", "");
             amount = (long) (Double.parseDouble(stringAmount));
+            if (decimals > 2) {
+                amount = amount * 10;
+            }
         } else {
             amount = (long) (Double.parseDouble(stringAmount) * 100);
         }
@@ -759,7 +762,6 @@ public class AccountPanel extends javax.swing.JPanel {
                 int reg = Integer.parseInt(jTextField6.getText());
 
                 toAccount = new Current(acc, reg);
-                commitNumber = 3;
                 bvc.transfer(account, toAccount, amount);
                 BankGui.updateDialog(confirmDialog);
                 BankGui.updateDialog(currentTransferDialog);
@@ -818,12 +820,10 @@ public class AccountPanel extends javax.swing.JPanel {
                 bvc.deposit(account, amount);
                 BankGui.updateDialog(inOutDialog);
                 BankGui.updateDialog(confirmDialog);
-                commitNumber = 1;
             } else if (jRadioButton2.isSelected()) {
                 bvc.withdraw(account, amount);
                 BankGui.updateDialog(inOutDialog);
                 BankGui.updateDialog(confirmDialog);
-                commitNumber = 2;
             }
         } catch (Exception e) {
         }
@@ -883,7 +883,6 @@ public class AccountPanel extends javax.swing.JPanel {
 
                 toAccount = (Account) jComboBox1.getSelectedItem();
                 bvc.transfer(account, toAccount, amount);
-                commitNumber = 4;
 
                 BankGui.updateDialog(confirmDialog);
                 BankGui.updateDialog(savingsTransferDialog);
