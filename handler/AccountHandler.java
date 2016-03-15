@@ -103,7 +103,7 @@ public class AccountHandler {
 
     public void withdraw(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
         long overdrawFee = 0;
-        if (userAccount.getBalance() - amount >= -userAccount.getOverdraw()) {
+        if (userAccount.getBalance() - amount < -userAccount.getOverdraw()) {
             overdrawFee = 50000;
         }
         begin();
@@ -131,7 +131,7 @@ public class AccountHandler {
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
         long overdrawFee = 0;
         begin();
-        if (fromAccount.getBalance() - amount >= -fromAccount.getOverdraw()) {
+        if (fromAccount.getBalance() - amount < -fromAccount.getOverdraw()) {
             overdrawFee = 50000;
             String stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
             PreparedStatement pst = db.getPrepStmt(stmt);
@@ -142,7 +142,7 @@ public class AccountHandler {
         }
         String stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
         PreparedStatement pst = db.getPrepStmt(stmt);
-        pst.setLong(1, amount + overdrawFee);
+        pst.setLong(1, (amount + overdrawFee));
         pst.setLong(2, fromAccount.getAccountNumber());
         pst.executeUpdate();
         pst.close();
