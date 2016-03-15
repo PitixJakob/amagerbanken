@@ -102,47 +102,59 @@ public class AccountHandler {
     }
 
     public void withdraw(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
+        long overdrawFee = 0;
         if (userAccount.getBalance() - amount >= -userAccount.getOverdraw()) {
-            begin();
-            String stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
-            PreparedStatement pst = db.getPrepStmt(stmt);
-            pst.setLong(1, amount);
-            pst.setLong(2, bankAccount.getAccountNumber());
-            pst.executeUpdate();
-            pst.close();
-            stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
-            pst = db.getPrepStmt(stmt);
-            pst.setLong(1, amount);
-            pst.setLong(2, cashAccount.getAccountNumber());
-            pst.executeUpdate();
-            pst.close();
-            stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
-            pst = db.getPrepStmt(stmt);
-            pst.setLong(1, amount);
-            pst.setLong(2, userAccount.getAccountNumber());
-            pst.executeUpdate();
-            pst.close();
+            overdrawFee = 50000;
         }
+        begin();
+        String stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        pst.setLong(1, amount+overdrawFee);
+        pst.setLong(2, bankAccount.getAccountNumber());
+        pst.executeUpdate();
+        pst.close();
+        stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
+        pst = db.getPrepStmt(stmt);
+        pst.setLong(1, amount);
+        pst.setLong(2, cashAccount.getAccountNumber());
+        pst.executeUpdate();
+        pst.close();
+        stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
+        pst = db.getPrepStmt(stmt);
+        pst.setLong(1, amount+overdrawFee);
+        pst.setLong(2, userAccount.getAccountNumber());
+        pst.executeUpdate();
+        pst.close();
+
     }
 
     public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
+        long overdrawFee = 0;
+        begin();
         if (fromAccount.getBalance() - amount >= -fromAccount.getOverdraw()) {
-            begin();
-            String stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
+            overdrawFee = 50000;
+            String stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
             PreparedStatement pst = db.getPrepStmt(stmt);
-            pst.setLong(1, amount);
-            pst.setLong(2, fromAccount.getAccountNumber());
+            pst.setLong(1, overdrawFee);
+            pst.setLong(2, 0000000000);
             pst.executeUpdate();
             pst.close();
-            if (toAccount.getRegNr() == 4700) {
-                stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
-                pst = db.getPrepStmt(stmt);
-                pst.setLong(1, amount);
-                pst.setLong(2, toAccount.getAccountNumber());
-                pst.executeUpdate();
-                pst.close();
-            }
         }
+        String stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        pst.setLong(1, amount + overdrawFee);
+        pst.setLong(2, fromAccount.getAccountNumber());
+        pst.executeUpdate();
+        pst.close();
+        if (toAccount.getRegNr() == 4700) {
+            stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
+            pst = db.getPrepStmt(stmt);
+            pst.setLong(1, amount);
+            pst.setLong(2, toAccount.getAccountNumber());
+            pst.executeUpdate();
+            pst.close();
+        }
+
     }
 
     public void updateInterest(Account account, double newInterest) throws SQLException {
