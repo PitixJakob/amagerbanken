@@ -766,7 +766,7 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
             layout = (CardLayout) jPanel1.getLayout();
             layout.next(jPanel1);
         } catch (SQLException ex) {
-            Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+            showError("Det er sket en uventet fejl", "Forbindelse til databasen er nede", "Kontakt support", ex.getMessage());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -785,7 +785,7 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
             try {
                 bvc.updateCustomer(name, phone, email);
             } catch (SQLException ex) {
-                Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+                showError("Det er sket en uventet fejl", "Forbindelse til databasen er nede", "Kontakt support", ex.getMessage());
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -818,11 +818,11 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
         try {
             customer = bvc.getCustomers(nameField1.getText());
         } catch (SQLException ex) {
-            Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+            showError("Det er sket en uventet fejl", "Forbindelse til databasen er nede", "Kontakt support", ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+            showError("Det er sket en uventet fejl", "Kan ikke find database driver", "Kontakt support", ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+            showError("Det er sket en uventet fejl", "System fejl", "Kontakt support", ex.getMessage());
         }
         DefaultListModel model = new DefaultListModel();
         for (Customer c1 : customer) {
@@ -867,11 +867,11 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
                 showAccountsPanel.repaint();
                 BankGui.updateDialog(newAccountDialog);
             } catch (SQLException ex) {
-                Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+                showError("Det er sket en uventet fejl", "Forbindelse til databasen er nede", "Kontakt support", ex.getMessage());
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+                showError("Det er sket en uventet fejl", "Kan ikke find database driver", "Kontakt support", ex.getMessage());
             } catch (IOException ex) {
-                Logger.getLogger(BankGui.class.getName()).log(Level.SEVERE, null, ex);
+                showError("Det er sket en uventet fejl", "System fejl", "Kontakt support", ex.getMessage());
             }
         }
     }//GEN-LAST:event_jButton8ActionPerformed
