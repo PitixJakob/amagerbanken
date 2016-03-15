@@ -27,15 +27,15 @@ public class AccountHandler {
         String stmt = "SELECT account.account_number FROM account ORDER BY account_number DESC LIMIT 1";
         PreparedStatement pst = db.getPrepStmt(stmt);
         ResultSet rs = pst.executeQuery();
-        int prevAccountNumber = 0;
+        long prevAccountNumber = 0;
         while (rs.next()) {
-            prevAccountNumber = rs.getInt("account_number");
+            prevAccountNumber = rs.getLong("account_number");
         }
         pst.close();
         if (prevAccountNumber != 0) {
             stmt = "INSERT INTO account (account_number, account_type, interest, overdraw, customer_cpr) VALUES (?, ?, ?, ?, ?)";
             pst = db.getPrepStmt(stmt);
-            pst.setInt(1, prevAccountNumber + 1);
+            pst.setLong(1, prevAccountNumber + 1);
             pst.setInt(2, accountType);
             pst.setDouble(3, interest);
             pst.setLong(4, overdraw);
@@ -60,7 +60,7 @@ public class AccountHandler {
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             int accountType = rs.getInt("account_type");
-            int accountNumber = rs.getInt("account_number");
+            long accountNumber = rs.getLong("account_number");
             int regNr = rs.getInt("reg_nr");
             long balance = rs.getLong("balance");
             double interest = rs.getDouble("interest");

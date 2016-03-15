@@ -6,11 +6,11 @@ package model;
  */
 public class Current extends Account{
 
-    public Current(int accountNumber, int regNr) {
+    public Current(long accountNumber, int regNr) {
         super(accountNumber, regNr);
     }
     
-    public Current(int accountNumber, int regNr, long balance, double interest, long overdraw) {
+    public Current(long accountNumber, int regNr, long balance, double interest, long overdraw) {
         super(accountNumber, regNr, balance, interest, overdraw);
     }
 

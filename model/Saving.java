@@ -6,7 +6,7 @@ package model;
  */
 public class Saving extends Account{
 
-    public Saving(int accountNumber, int regNr, long balance, double interest, long overdraw) {
+    public Saving(long accountNumber, int regNr, long balance, double interest, long overdraw) {
         super(accountNumber, regNr, balance, interest, overdraw);
     }
 
