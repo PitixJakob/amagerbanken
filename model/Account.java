@@ -9,13 +9,13 @@ import java.util.Locale;
  */
 public abstract class Account {
     
-    private int accountNumber;
+    private long accountNumber;
     private int regNr;
     private long balance;
     private double interest;
     private long overdraw;
     
-    public Account(int accountNumber, int regNr, long balance, double interest, long overdraw) {
+    public Account(long accountNumber, int regNr, long balance, double interest, long overdraw) {
         this.accountNumber = accountNumber;
         this.regNr = regNr;
         this.balance = balance;
@@ -23,7 +23,7 @@ public abstract class Account {
         this.overdraw = overdraw;
     }
     
-    public Account(int accountNumber, int regNr) {
+    public Account(long accountNumber, int regNr) {
         this.accountNumber = accountNumber;
         this.regNr = regNr;
     }
@@ -34,7 +34,7 @@ public abstract class Account {
     // Accessors
     //--------------------------------------------------------------------------
 
-    public int getAccountNumber() {
+    public long getAccountNumber() {
         return accountNumber;
     }
 
