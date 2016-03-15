@@ -83,19 +83,19 @@ public class AccountHandler {
             String stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
             PreparedStatement pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
-            pst.setInt(2, bankAccount.getAccountNumber());
+            pst.setLong(2, bankAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
             stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
             pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
-            pst.setInt(2, cashAccount.getAccountNumber());
+            pst.setLong(2, cashAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
             stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
             pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
-            pst.setInt(2, userAccount.getAccountNumber());
+            pst.setLong(2, userAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
         }
@@ -107,19 +107,19 @@ public class AccountHandler {
             String stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
             PreparedStatement pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
-            pst.setInt(2, bankAccount.getAccountNumber());
+            pst.setLong(2, bankAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
             stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
             pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
-            pst.setInt(2, cashAccount.getAccountNumber());
+            pst.setLong(2, cashAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
             stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
             pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
-            pst.setInt(2, userAccount.getAccountNumber());
+            pst.setLong(2, userAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
         }
@@ -131,14 +131,14 @@ public class AccountHandler {
             String stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
             PreparedStatement pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
-            pst.setInt(2, fromAccount.getAccountNumber());
+            pst.setLong(2, fromAccount.getAccountNumber());
             pst.executeUpdate();
             pst.close();
             if (toAccount.getRegNr() == 4700) {
                 stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
                 pst = db.getPrepStmt(stmt);
                 pst.setLong(1, amount);
-                pst.setInt(2, toAccount.getAccountNumber());
+                pst.setLong(2, toAccount.getAccountNumber());
                 pst.executeUpdate();
                 pst.close();
             }
@@ -149,7 +149,7 @@ public class AccountHandler {
         String stmt = "UPDATE account SET interest=? WHERE account_number=?";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.setDouble(1, newInterest);
-        pst.setInt(2, account.getAccountNumber());
+        pst.setLong(2, account.getAccountNumber());
         pst.executeUpdate();
         account.setInterest(newInterest);
         pst.close();
@@ -160,7 +160,7 @@ public class AccountHandler {
         String stmt = "UPDATE account SET overdraw=? WHERE account_number=?";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.setLong(1, newOverdraw);
-        pst.setInt(2, account.getAccountNumber());
+        pst.setLong(2, account.getAccountNumber());
         pst.executeUpdate();
         account.setOverdraw(newOverdraw);
         pst.close();
