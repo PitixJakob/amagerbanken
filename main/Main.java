@@ -31,7 +31,7 @@ public class Main {
         JDialog dialog = jop.createDialog("Fejl i opstart");
         try {
             jop.setMessageType(INFORMATION_MESSAGE);
-            jop.setMessage("Prøver at oprette forbindelse til serveren, vent venligst");
+            jop.setMessage("Opretter forbindelse til serveren, vent venligst");
             jop.setOptions(new Object[]{});
             dialog.setModal(false);
             dialog.pack();
