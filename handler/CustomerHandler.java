@@ -26,6 +26,15 @@ public class CustomerHandler {
     public AccountHandler getAccountHandler() {
         return ah;
     }
+    
+    public void close(PreparedStatement stmt, ResultSet rs) throws SQLException {
+        if (stmt != null) {
+            stmt.close();
+        } 
+        if (rs != null) {
+            rs.close();
+        }
+    }
 
     public ArrayList<Customer> getCustomers(String searchName) throws SQLException, ClassNotFoundException, IOException {
         ArrayList<Customer> customers = new ArrayList<>();
@@ -44,8 +53,7 @@ public class CustomerHandler {
                 customers.add(new Customer(cpr, name, phone, email, password, accounts));
             }
         }
-        rs.close();
-        pst.close();
+        close(pst, rs);
         return customers;
     }
 
@@ -63,8 +71,7 @@ public class CustomerHandler {
             ArrayList<Account> accounts = ah.getAccounts(cpr);
             customer = new Customer(cpr, name, phone, email, password, accounts);
         }
-        rs.close();
-        pst.close();
+        close(pst, rs);
         return customer;
     }
 
@@ -75,18 +82,16 @@ public class CustomerHandler {
         pst.setString(2, new String(password));
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
-            rs.close();
-            pst.close();
+            close(pst, rs);
             return true;
+        } else {
+            close(pst, rs);
+            return false;
         }
-        rs.close();
-        pst.close();
-        return false;
-
     }
 
     public Customer customerLogin(String cpr, char[] password) throws SQLException {
-        if (new String(password).isEmpty()){
+        if (new String(password).isEmpty()) {
             return null;
         }
         if (validateLogin(cpr, password)) {
@@ -105,7 +110,7 @@ public class CustomerHandler {
         pst.setString(4, email);
         pst.setString(5, password);
         pst.executeUpdate();
-        pst.close();
+        close(pst, null);
     }
 
     public void updateCustomer(String cpr, String name, int phone, String email) throws SQLException {
@@ -115,20 +120,20 @@ public class CustomerHandler {
         pst.setString(1, name);
         pst.setString(2, cpr);
         pst.executeUpdate();
-        pst.close();
+        close(pst, null);
 
         stmt = "UPDATE customer SET phone = ? WHERE cpr = ? ";
         pst = db.getPrepStmt(stmt);
         pst.setInt(1, phone);
         pst.setString(2, cpr);
         pst.executeUpdate();
-        pst.close();
+        close(pst, null);
 
         stmt = "UPDATE customer SET email = ? WHERE cpr = ? ";
         pst = db.getPrepStmt(stmt);
         pst.setString(1, email);
         pst.setString(2, cpr);
         pst.executeUpdate();
-        pst.close();
+        close(pst, null);
     }
 }

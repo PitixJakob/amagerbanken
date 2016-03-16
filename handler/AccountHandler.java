@@ -22,6 +22,15 @@ public class AccountHandler {
     public AccountHandler() throws ClassNotFoundException, SQLException, IOException {
         db = DBConnector.getDB();
     }
+    
+    public void close(PreparedStatement stmt, ResultSet rs) throws SQLException {
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (rs != null) {
+            rs.close();
+        }
+    }
 
     public void addAccount(int accountType, double interest, long overdraw, Customer customer) throws SQLException {
         String stmt = "SELECT account.account_number FROM account ORDER BY account_number DESC LIMIT 1";
@@ -31,7 +40,7 @@ public class AccountHandler {
         while (rs.next()) {
             prevAccountNumber = rs.getLong("account_number");
         }
-        pst.close();
+        close(pst, null);
         if (prevAccountNumber != 0) {
             stmt = "INSERT INTO account (account_number, account_type, interest, overdraw, customer_cpr) VALUES (?, ?, ?, ?, ?)";
             pst = db.getPrepStmt(stmt);
@@ -48,8 +57,7 @@ public class AccountHandler {
                 customer.addAccount(new Saving(prevAccountNumber + 1, 4700, 0, interest, overdraw));
             }
         }
-        rs.close();
-        pst.close();
+        close(pst, rs);
     }
 
     public ArrayList<Account> getAccounts(String cpr) throws SQLException {
@@ -72,8 +80,7 @@ public class AccountHandler {
                 accounts.add(new Saving(accountNumber, regNr, balance, interest, overdraw));
             }
         }
-        rs.close();
-        pst.close();
+        close(pst, rs);
         return accounts;
     }
 
@@ -86,19 +93,19 @@ public class AccountHandler {
                 pst.setLong(1, amount);
                 pst.setLong(2, bankAccount.getAccountNumber());
                 pst.executeUpdate();
-                pst.close();
+                close(pst, null);
                 stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
                 pst = db.getPrepStmt(stmt);
                 pst.setLong(1, amount);
                 pst.setLong(2, cashAccount.getAccountNumber());
                 pst.executeUpdate();
-                pst.close();
+                close(pst, null);
                 stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
                 pst = db.getPrepStmt(stmt);
                 pst.setLong(1, amount);
                 pst.setLong(2, userAccount.getAccountNumber());
                 pst.executeUpdate();
-                pst.close();
+                close(pst, null);
             }
         }
     }
@@ -115,19 +122,19 @@ public class AccountHandler {
             pst.setLong(1, amount + overdrawFee);
             pst.setLong(2, bankAccount.getAccountNumber());
             pst.executeUpdate();
-            pst.close();
+            close(pst, null);
             stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
             pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount);
             pst.setLong(2, cashAccount.getAccountNumber());
             pst.executeUpdate();
-            pst.close();
+            close(pst, null);
             stmt = "UPDATE account SET balance = balance - ? WHERE account_number = ?";
             pst = db.getPrepStmt(stmt);
             pst.setLong(1, amount + overdrawFee);
             pst.setLong(2, userAccount.getAccountNumber());
             pst.executeUpdate();
-            pst.close();
+            close(pst, null);
         }
     }
 
@@ -143,7 +150,7 @@ public class AccountHandler {
                 pst.setLong(1, overdrawFee);
                 pst.setLong(2, 0000000000);
                 pst.executeUpdate();
-                pst.close();
+                close(pst, null);
             }
             if (toAccount.getRegNr() != 4700){
                 transferFee = 2500;
@@ -153,14 +160,14 @@ public class AccountHandler {
             pst.setLong(1, (amount + overdrawFee + transferFee));
             pst.setLong(2, fromAccount.getAccountNumber());
             pst.executeUpdate();
-            pst.close();
+            close(pst, null);
             if (toAccount.getRegNr() == 4700) {
                 stmt = "UPDATE account SET balance = balance + ? WHERE account_number = ?";
                 pst = db.getPrepStmt(stmt);
                 pst.setLong(1, amount);
                 pst.setLong(2, toAccount.getAccountNumber());
                 pst.executeUpdate();
-                pst.close();
+                close(pst, null);
             }
         }
 
@@ -173,8 +180,7 @@ public class AccountHandler {
         pst.setLong(2, account.getAccountNumber());
         pst.executeUpdate();
         account.setInterest(newInterest);
-        pst.close();
-
+        close(pst, null);
     }
 
     public void updateOverdraw(Account account, long newOverdraw) throws SQLException {
@@ -184,27 +190,27 @@ public class AccountHandler {
         pst.setLong(2, account.getAccountNumber());
         pst.executeUpdate();
         account.setOverdraw(newOverdraw);
-        pst.close();
+        close(pst, null);
     }
 
     public void begin() throws SQLException {
         String stmt = "BEGIN;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
-        pst.close();
+        close(pst, null);
     }
 
     public void commit() throws SQLException {
         String stmt = "COMMIT;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
-        pst.close();
+        close(pst, null);
     }
 
     public void rollback() throws SQLException {
         String stmt = "ROLLBACK;";
         PreparedStatement pst = db.getPrepStmt(stmt);
         pst.execute();
-        pst.close();
+        close(pst, null);
     }
 }

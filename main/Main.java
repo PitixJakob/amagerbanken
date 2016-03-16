@@ -9,12 +9,9 @@ import bank.BankGui;
 import bank.BankViewControl;
 import customer.CustomerViewControl;
 import customer.CustomerGui;
-import handler.CustomerHandler;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -41,7 +38,7 @@ public class Main {
             dialog.setLocationRelativeTo(null);
             dialog.setTitle("Forbinder til serveren");
             dialog.setVisible(true);
-            
+
             Bank bank = new Bank();
             BankViewControl bvc = new BankViewControl(bank);
             BankGui bg = new BankGui(bvc);
@@ -53,7 +50,7 @@ public class Main {
             bg.validate();
             bg.setLocationRelativeTo(null);
             bg.setVisible(false);
-            
+
             dialog.setVisible(false);
         } catch (SQLException ex) {
             dialog.setVisible(false);

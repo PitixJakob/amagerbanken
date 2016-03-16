@@ -7,9 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import db.FileHandler;
 
 /**
  *
@@ -38,10 +36,9 @@ public class DBConnector {
     }
 
     public void connectToDB() throws SQLException {
-        if (isConnected() == false || con == null){
+        if (isConnected() == false || con == null) {
             con = DriverManager.getConnection("jdbc:mysql://" + database_url + "/" + schema, database_usr, database_pwd);
         }
-        
     }
 
     public void disconnectDB() throws SQLException {
@@ -70,7 +67,7 @@ public class DBConnector {
     }
 
     public boolean isConnected() throws SQLException {
-        if (con != null){
+        if (con != null) {
             return con.isValid(0);
         }
         return false;
@@ -88,20 +85,5 @@ public class DBConnector {
         stmt = con.prepareStatement(stm);
         return stmt;
     }
-
-    public Connection getCon() {
-        return con;
-    }
-
-    
-    public String getStatus() throws SQLException {
-        if (isConnected() == true) {
-            return "Forbundet";
-        } else {
-            return "Ikke forbundet";
-        }
-    }
-    
-    
 
 }

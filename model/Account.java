@@ -5,16 +5,16 @@ import java.util.Locale;
 
 /**
  *
- * @author Morten Ricki Rasmussen 
+ * @author Morten Ricki Rasmussen
  */
 public abstract class Account {
-    
+
     private long accountNumber;
     private int regNr;
     private long balance;
     private double interest;
     private long overdraw;
-    
+
     public Account(long accountNumber, int regNr, long balance, double interest, long overdraw) {
         this.accountNumber = accountNumber;
         this.regNr = regNr;
@@ -22,18 +22,17 @@ public abstract class Account {
         this.interest = interest;
         this.overdraw = overdraw;
     }
-    
+
     public Account(long accountNumber, int regNr) {
         this.accountNumber = accountNumber;
         this.regNr = regNr;
     }
-    
+
     public abstract int getAccountType();
-    
+
     //--------------------------------------------------------------------------
     // Accessors
     //--------------------------------------------------------------------------
-
     public long getAccountNumber() {
         return accountNumber;
     }
@@ -53,27 +52,26 @@ public abstract class Account {
     public long getOverdraw() {
         return overdraw;
     }
-    
+
     public String getBalanceFormat() {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
         String b = nf.format(((double) balance) / 100);
         return b;
     }
-    
+
     public String getOverdrawFormat() {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
         String b = nf.format(((double) overdraw / 100));
         return b;
     }
-    
+
     //--------------------------------------------------------------------------
     // Mutators
     //--------------------------------------------------------------------------
-    
     public void deposit(long amount) {
         balance = balance + amount;
     }
-    
+
     public void withdraw(long amount) {
         balance = balance - amount;
     }
@@ -85,9 +83,10 @@ public abstract class Account {
     public void setOverdraw(long overdraw) {
         this.overdraw = overdraw;
     }
-    
+
     /**
      * Method used for tranfering money from account to account
+     *
      * @param reciver
      * @param amount
      * @return true if transfer compplete othervise returns false
@@ -101,9 +100,8 @@ public abstract class Account {
             return false;
         }
     }
-    
+
     public String toString() {
         return regNr + " - " + accountNumber + ": " + getBalanceFormat();
     }
 }
-    
