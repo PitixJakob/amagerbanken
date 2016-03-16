@@ -47,14 +47,17 @@ public class Main {
             jop.setMessage("Fejl i forbindelsen til databasen, kontakt support: "+ex.getLocalizedMessage());
             dialog.pack();
             dialog.setVisible(true);
+            System.exit(0);
         } catch (ClassNotFoundException ex) {
             jop.setMessage("Der mangler en fil i lib mappen, kontakt support: "+ex.getLocalizedMessage());
             dialog.pack();
             dialog.setVisible(true);
+            System.exit(0);
         } catch (IOException ex) {
             jop.setMessage("Kunne ikke få adgang til filen med databaseindstillinger, kontakt support: "+ex.getLocalizedMessage());
             dialog.pack();
             dialog.setVisible(true);
+            System.exit(0);
         }
 
     }
