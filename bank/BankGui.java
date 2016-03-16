@@ -27,12 +27,14 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
     private CardLayout layout;
     private BankViewControl bvc;
     private ArrayList<Customer> customer;
+    private int enterPressedCount;
 
     public BankGui(BankViewControl bvc) {
         initComponents();
         updateDialog(loginDialog);
         this.bvc = bvc;
         this.setLocationRelativeTo(null);
+        enterPressedCount = 2;
     }
 
     public static void updateDialog(JDialog dialog) {
@@ -714,13 +716,15 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
             layout.next(jPanel1);
         } else {
             JOptionPane.showMessageDialog(null, "Brugernavnet eller koden er forkert!");
+            enterPressedCount = 0;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void passwordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER && enterPressedCount > 1) {
             jButton1.doClick();
         }
+        enterPressedCount++;
     }//GEN-LAST:event_passwordFieldKeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

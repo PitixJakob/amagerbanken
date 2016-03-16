@@ -157,7 +157,9 @@ public class AccountHandler {
                 return false;
             }
         }
-        
+        if (fromAccount.getAccountType() == 2 && fromAccount.getBalance() - amount < 0){
+            return false;
+        }
         if (amount >= 0) {
             long overdrawFee = 0;
             long transferFee = 0;

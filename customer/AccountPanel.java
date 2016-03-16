@@ -604,10 +604,12 @@ public class AccountPanel extends javax.swing.JPanel {
                 long amount = (long) (Double.parseDouble(jTextField4.getText()) * 100);
 
                 toAccount = (Account) jComboBox1.getSelectedItem();
-                cvc.transfer(account, toAccount, amount);
-
-                updateDialog(confirmDialog);
-                updateDialog(savingsTransferDialog);
+                if (cvc.transfer(account, toAccount, amount)) {
+                    updateDialog(confirmDialog);
+                    updateDialog(currentTransferDialog);
+                } else {
+                    showError("Fejl", "Overførsel ikke mulig", "Denne konto kan ikke have en balance under 0 kr", "");
+                }
 
             } catch (SQLException ex) {
                 showError("Det er sket en uventet fejl", "Forbindelse til databasen er nede", "Kontakt support", ex.getMessage());
