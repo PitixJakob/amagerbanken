@@ -49,7 +49,7 @@ public class AccountPanel extends javax.swing.JPanel {
         transferLabel1.setText("Du overfører fra " + regAndNumber);
         transferLabel4.setText("Du overfører fra " + regAndNumber);
     }
-    
+
     public void showError(String header, String line1, String line2, String line3) {
         jLabel21.setText(header);
         jLabel22.setText(line1);
@@ -74,7 +74,7 @@ public class AccountPanel extends javax.swing.JPanel {
 
         return amount;
     }
-    
+
     public void enterOnlyNumbers(KeyEvent evt) {
         if (!Character.isDigit(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_PERIOD)) {
             evt.consume();
@@ -805,9 +805,12 @@ public class AccountPanel extends javax.swing.JPanel {
                 int reg = Integer.parseInt(jTextField6.getText());
 
                 toAccount = new Current(acc, reg);
-                bvc.transfer(account, toAccount, amount);
-                BankGui.updateDialog(confirmDialog);
-                BankGui.updateDialog(currentTransferDialog);
+                if (bvc.transfer(account, toAccount, amount)) {
+                    BankGui.updateDialog(confirmDialog);
+                    BankGui.updateDialog(currentTransferDialog);
+                } else {
+                    showError("Fejl", "Overførsel ikke mulig", "Den valgte modtager konto eksisterer muligvis ikke", "Man kan ikke overføre 0 kr");
+                }
             } catch (SQLException ex) {
                 showError("Det er sket en uventet fejl", "Forbindelse til databasen er nede", "Kontakt support", ex.getMessage());
             }
