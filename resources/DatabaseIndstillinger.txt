@@ -1,8 +1,0 @@
-//USERNAME
-jjcomput_bank
-//PASSWORD
-amagerbanken
-//URL
-83.221.132.78:3300
-//SCHEMA
-jjcomput_bank
