@@ -926,7 +926,7 @@ public class AccountPanel extends javax.swing.JPanel {
                 toAccount = (Account) jComboBox1.getSelectedItem();
                 if (bvc.transfer(account, toAccount, amount)) {
                     BankGui.updateDialog(confirmDialog);
-                    BankGui.updateDialog(currentTransferDialog);
+                    BankGui.updateDialog(savingsTransferDialog);
                 } else {
                     showError("Fejl", "Overførsel ikke mulig", "Denne konto kan ikke have en balance under 0 kr", "");
                 }

@@ -606,7 +606,7 @@ public class AccountPanel extends javax.swing.JPanel {
                 toAccount = (Account) jComboBox1.getSelectedItem();
                 if (cvc.transfer(account, toAccount, amount)) {
                     updateDialog(confirmDialog);
-                    updateDialog(currentTransferDialog);
+                    updateDialog(savingsTransferDialog);
                 } else {
                     showError("Fejl", "Overførsel ikke mulig", "Denne konto kan ikke have en balance under 0 kr", "");
                 }
