@@ -44,18 +44,21 @@ public class Main {
             bg.setLocationRelativeTo(null);
             bg.setVisible(false);
         } catch (SQLException ex) {
-            jop.setMessage("Fejl i forbindelsen til databasen, kontakt support: "+ex.getLocalizedMessage());
+            jop.setMessage("Fejl i forbindelsen til databasen, kontakt support: " + ex.getLocalizedMessage());
             dialog.pack();
+            dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
             System.exit(0);
         } catch (ClassNotFoundException ex) {
-            jop.setMessage("Der mangler en fil i lib mappen, kontakt support: "+ex.getLocalizedMessage());
+            jop.setMessage("Der mangler en fil i lib mappen, kontakt support: " + ex.getLocalizedMessage());
             dialog.pack();
+            dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
             System.exit(0);
         } catch (IOException ex) {
-            jop.setMessage("Kunne ikke få adgang til filen med databaseindstillinger, kontakt support: "+ex.getLocalizedMessage());
+            jop.setMessage("Kunne ikke få adgang til filen med databaseindstillinger, kontakt support: " + ex.getLocalizedMessage());
             dialog.pack();
+            dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
             System.exit(0);
         }
