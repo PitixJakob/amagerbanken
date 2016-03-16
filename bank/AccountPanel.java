@@ -26,9 +26,9 @@ public class AccountPanel extends javax.swing.JPanel {
     private Account toAccount;
     private Account account;
     private DefaultComboBoxModel model;
-    private BankViewController bvc;
+    private BankViewControl bvc;
 
-    public AccountPanel(Account account, Customer customer, BankViewController bvc) {
+    public AccountPanel(Account account, Customer customer, BankViewControl bvc) {
         initComponents();
         this.account = account;
         this.customer = customer;

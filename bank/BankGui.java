@@ -25,10 +25,10 @@ import model.Customer;
 public class BankGui extends javax.swing.JFrame implements ActionListener {
 
     private CardLayout layout;
-    private BankViewController bvc;
+    private BankViewControl bvc;
     private ArrayList<Customer> customer;
 
-    public BankGui(BankViewController bvc) {
+    public BankGui(BankViewControl bvc) {
         initComponents();
         updateDialog(loginDialog);
         this.bvc = bvc;

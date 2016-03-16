@@ -12,10 +12,10 @@ import model.Customer;
  *
  * @author jakob
  */
-public class BankViewController {
+public class BankViewControl {
     private Bank bank;
     
-    public BankViewController(Bank bank){
+    public BankViewControl(Bank bank){
         this.bank = bank;
     }
     

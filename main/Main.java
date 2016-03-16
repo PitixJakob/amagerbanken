@@ -6,9 +6,9 @@
 package main;
 
 import bank.BankGui;
-import bank.BankViewController;
-import customerControl.CustomerViewControl;
-import customerGui.CustomerGui;
+import bank.BankViewControl;
+import customer.CustomerViewControl;
+import customer.CustomerGui;
 import handler.CustomerHandler;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class Main {
             dialog.setVisible(true);
             
             Bank bank = new Bank();
-            BankViewController bvc = new BankViewController(bank);
+            BankViewControl bvc = new BankViewControl(bank);
             BankGui bg = new BankGui(bvc);
             bank.addListener((ActionListener) bg);
             CustomerViewControl cvc = null;

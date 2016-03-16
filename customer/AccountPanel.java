@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package customerGui;
+package customer;
 
-import customerControl.CustomerViewControl;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,7 +20,7 @@ import model.Customer;
  *
  * @author Morten Ricki Rasmussen
  */
-public class AccountPanel1 extends javax.swing.JPanel {
+public class AccountPanel extends javax.swing.JPanel {
 
     private Customer customer;
     private Account toAccount;
@@ -34,7 +33,7 @@ public class AccountPanel1 extends javax.swing.JPanel {
      *
      * @param account
      */
-    public AccountPanel1(Account account, Customer customer, CustomerViewControl cvc) {
+    public AccountPanel(Account account, Customer customer, CustomerViewControl cvc) {
         initComponents();
         this.account = account;
         this.customer = customer;
@@ -105,7 +104,7 @@ public class AccountPanel1 extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         transferLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         transferLabel2 = new javax.swing.JLabel();
         transferLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();

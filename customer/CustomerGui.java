@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package customerGui;
+package customer;
 
-import customerControl.CustomerViewControl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -44,7 +43,7 @@ public class CustomerGui extends javax.swing.JFrame implements ActionListener {
             jLabel1.setText(cvc.getCustomer().getName());
             jPanel2.removeAll();
             for (Account account : cvc.getAccounts()) {
-                AccountPanel1 a = new AccountPanel1(account, cvc.getCustomer(), cvc);
+                AccountPanel a = new AccountPanel(account, cvc.getCustomer(), cvc);
                 jPanel2.add(a);
             }
             jPanel2.revalidate();
