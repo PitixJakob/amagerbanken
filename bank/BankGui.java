@@ -128,7 +128,7 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
         nameField1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        findCustomerList = new javax.swing.JList<>();
+        findCustomerList = new javax.swing.JList<String>();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -489,7 +489,7 @@ public class BankGui extends javax.swing.JFrame implements ActionListener {
                 .addGroup(accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(63, 63, 63))
         );
 
         jPanel1.add(accountPanel, "card3");
