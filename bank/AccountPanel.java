@@ -42,6 +42,9 @@ public class AccountPanel extends javax.swing.JPanel {
         String number = "" + account.getAccountNumber();
         String regAndNumber = reg + " - " + number;
         String balance = account.getBalanceFormat();
+        if (account.getAccountType() == 2){
+            overdrawButton.setVisible(false);
+        }
         accNumberField.setText(regAndNumber);
         balanceField.setText(balance);
         interestLabel.setText("Nuværende Rente: " + account.getInterest());
@@ -760,15 +763,15 @@ public class AccountPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(interestButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(overdrawButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inOutButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(transferButton)
-                .addContainerGap())
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -921,10 +924,12 @@ public class AccountPanel extends javax.swing.JPanel {
                 long amount = (long) (Double.parseDouble(jTextField4.getText()) * 100);
 
                 toAccount = (Account) jComboBox1.getSelectedItem();
-                bvc.transfer(account, toAccount, amount);
-
-                BankGui.updateDialog(confirmDialog);
-                BankGui.updateDialog(savingsTransferDialog);
+                if (bvc.transfer(account, toAccount, amount)) {
+                    BankGui.updateDialog(confirmDialog);
+                    BankGui.updateDialog(currentTransferDialog);
+                } else {
+                    showError("Fejl", "Overførsel ikke mulig", "Denne konto kan ikke have en balance under 0 kr", "");
+                }
 
             } catch (SQLException ex) {
                 showError("Det er sket en uventet fejl", "Forbindelse til databasen er nede", "Kontakt support", ex.getMessage());
