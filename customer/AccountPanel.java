@@ -8,7 +8,6 @@ package customer;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
@@ -587,9 +586,8 @@ public class AccountPanel extends javax.swing.JPanel {
         if (account.getAccountType() == 1) {
             updateDialog(currentTransferDialog);
         } else {
-            ArrayList<Account> accounts = customer.getAccounts();
-            for (Account account1 : accounts) {
-                if (account1 != this.account) {
+            for (Account account1 : customer.getAccounts()) {
+                if (account1.getAccountNumber() != account.getAccountNumber()) {
                     model.addElement(account1);
                 }
             }
