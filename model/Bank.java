@@ -29,14 +29,10 @@ public class Bank {
     /**
      * Method loads bank and info from database
      */
-    public void setInfo() {
-        try {
+    public void setInfo() throws SQLException {
             ArrayList accounts = ch.getAccountHandler().getAccounts("bank");
             account = (Current) accounts.get(0);
             cash = (Current) accounts.get(1);
-        } catch (SQLException ex) {
-            Logger.getLogger(Bank.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public void updateModel() throws SQLException, ClassNotFoundException, IOException{
