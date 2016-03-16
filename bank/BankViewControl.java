@@ -65,8 +65,8 @@ public class BankViewControl {
         bank.getCustomerHandler().getAccountHandler().withdraw(bank.getAccount(), bank.getCash(), account, amount);
     }
     
-    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
-        bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
+    public boolean transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
+        return bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
     }
     
     public void addAccount(int accType, double interest, long overdraw, Customer customer) throws SQLException, ClassNotFoundException, IOException {

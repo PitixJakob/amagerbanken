@@ -44,8 +44,8 @@ public class CustomerViewControl {
         return customer;
     }
     
-    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException, ClassNotFoundException, IOException{
-        bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
+    public boolean transfer(Account fromAccount, Account toAccount, long amount) throws SQLException, ClassNotFoundException, IOException{
+        return bank.getCustomerHandler().getAccountHandler().transfer(fromAccount, toAccount, amount);
     }
     
     public void commit() throws SQLException, ClassNotFoundException, IOException {

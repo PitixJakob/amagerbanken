@@ -550,9 +550,12 @@ public class AccountPanel extends javax.swing.JPanel {
                 int reg = Integer.parseInt(jTextField6.getText());
 
                 toAccount = new Current(acc, reg);
-                cvc.transfer(account, toAccount, amount);
-                updateDialog(confirmDialog);
-                updateDialog(currentTransferDialog);
+                if (cvc.transfer(account, toAccount, amount)) {
+                    updateDialog(confirmDialog);
+                    updateDialog(currentTransferDialog);
+                } else {
+                    showError("Fejl", "Overførsel ikke mulig", "Den valgte modtager konto eksisterer muligvis ikke", "Man kan ikke overføre 0 kr");
+                }
             } catch (SQLException ex) {
                 showError("Det er sket en uventet fejl", "Forbindelse til databasen er nede", "Kontakt support", ex.getMessage());
             } catch (ClassNotFoundException ex) {

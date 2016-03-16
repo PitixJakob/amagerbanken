@@ -83,6 +83,19 @@ public class AccountHandler {
         close(pst, rs);
         return accounts;
     }
+    
+    public boolean validateAccount(long accountNumber) throws SQLException{
+        String stmt = "SELECT * FROM account WHERE account_number = ?";
+        PreparedStatement pst = db.getPrepStmt(stmt);
+        pst.setLong(1, accountNumber);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()){
+            close(pst, rs);
+            return true;
+        }
+        close(pst, rs);
+        return false;
+    }
 
     public void deposit(Account bankAccount, Account cashAccount, Account userAccount, long amount) throws SQLException {
         if (amount >= 0) {
@@ -138,7 +151,13 @@ public class AccountHandler {
         }
     }
 
-    public void transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
+    public boolean transfer(Account fromAccount, Account toAccount, long amount) throws SQLException {
+        if (toAccount.getRegNr() == 4700){
+            if (!validateAccount(toAccount.getAccountNumber())){
+                return false;
+            }
+        }
+        
         if (amount >= 0) {
             long overdrawFee = 0;
             long transferFee = 0;
@@ -169,8 +188,9 @@ public class AccountHandler {
                 pst.executeUpdate();
                 close(pst, null);
             }
+            return true;
         }
-
+        return false;
     }
 
     public void updateInterest(Account account, double newInterest) throws SQLException {
