@@ -103,7 +103,7 @@ public class AccountPanel extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         transferLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         transferLabel2 = new javax.swing.JLabel();
         transferLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
